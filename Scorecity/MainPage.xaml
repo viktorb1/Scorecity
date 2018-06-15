@@ -74,34 +74,35 @@
 
             <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
                 <Grid Grid.Row="1" Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <StackPanel>
-                        <GridView>
-                            <GridView.Resources>
-                                <Style TargetType="TextBlock" x:Key="BoxscoreHeader">
-                                    <Setter Property="Margin" Value="0 0 0 0"/>
-                                    <Setter Property="TextAlignment" Value="Center"/>
-                                    <Setter Property="FontWeight" Value="Bold"/>
-                                </Style>
-                            </GridView.Resources>
+					<StackPanel>
 
-                            <TextBlock Text="" Style="{StaticResource BoxscoreHeader}"/>
-                            <TextBlock Text="MIN" Style="{StaticResource BoxscoreHeader}"/>
-                            <TextBlock Text="PTS" Style="{StaticResource BoxscoreHeader}"/>
-                            <TextBlock Text="AST" Style="{StaticResource BoxscoreHeader}"/>
-                            <TextBlock Text="REB" Style="{StaticResource BoxscoreHeader}"/>
-                            <TextBlock Text="FG" Style="{StaticResource BoxscoreHeader}"/>
-                            <TextBlock Text="3PT" Style="{StaticResource BoxscoreHeader}"/>
-                            <TextBlock Text="FT" Style="{StaticResource BoxscoreHeader}"/>
-                            <TextBlock Text="STL" Style="{StaticResource BoxscoreHeader}"/>
-                            <TextBlock Text="BLK" Style="{StaticResource BoxscoreHeader}"/>
-                            <TextBlock Text="TOV" Style="{StaticResource BoxscoreHeader}"/>
-                            <TextBlock Text="PF" Style="{StaticResource BoxscoreHeader}"/>
-                        </GridView>
+						<ListView ItemsSource="{x:Bind gd.gameDetails.stats.activePlayers, Mode=OneWay}" Grid.Row="1">
+							<ListView.Resources>
+								<Style TargetType="Button" x:Key="BoxscoreHeader">
+									<Setter Property="Margin" Value="0 0 0 0"/>
+									<Setter Property="FontWeight" Value="Bold"/>
+								</Style>
+							</ListView.Resources>
 
-                        <ItemsControl ItemsSource="{x:Bind gd.gameDetails.stats.activePlayers, Mode=OneWay}" Grid.Row="1">
-                            <ItemsControl.ItemTemplate>
+							<ListView.Header>
+								<StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Orientation="Horizontal">
+									<Button Style="{StaticResource BoxscoreHeader}">MIN</Button>
+									<Button Style="{StaticResource BoxscoreHeader}">PTS</Button>
+									<Button Style="{StaticResource BoxscoreHeader}">AST</Button>
+									<Button Style="{StaticResource BoxscoreHeader}">REB</Button>
+									<Button Style="{StaticResource BoxscoreHeader}">FG</Button>
+									<Button Style="{StaticResource BoxscoreHeader}">3PT</Button>
+									<Button Style="{StaticResource BoxscoreHeader}">FT</Button>
+									<Button Style="{StaticResource BoxscoreHeader}">STL</Button>
+									<Button Style="{StaticResource BoxscoreHeader}">BLK</Button>
+									<Button Style="{StaticResource BoxscoreHeader}">TOV</Button>
+									<Button Style="{StaticResource BoxscoreHeader}">PF</Button>
+								</StackPanel>
+							</ListView.Header>
+
+							<ListView.ItemTemplate>
                                 <DataTemplate x:DataType="local:ActivePlayer">
-                                    <GridView>
+                                    <StackPanel Orientation="Horizontal">
                                         <TextBlock Text="{x:Bind min, Mode=OneWay}" Width="40" TextAlignment="Center"/>
                                         <TextBlock Text="{x:Bind points, Mode=OneWay}" Width="35" TextAlignment="Center"/>
                                         <TextBlock Text="{x:Bind assists, Mode=OneWay}" Width="35" TextAlignment="Center"/>
@@ -126,10 +127,10 @@
                                         <TextBlock Text="{x:Bind blocks, Mode=OneWay}" Width="35" TextAlignment="Center"/>
                                         <TextBlock Text="{x:Bind turnovers, Mode=OneWay}" Width="35" TextAlignment="Center"/>
                                         <TextBlock Text="{x:Bind pFouls, Mode=OneWay}" Width="35" TextAlignment="Center"/>
-                                    </GridView>
+                                    </StackPanel>
                                 </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
+                            </ListView.ItemTemplate>
+                        </ListView>
                     </StackPanel>
                 </Grid>
             </ScrollViewer>

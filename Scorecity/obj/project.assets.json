@@ -27494,24 +27494,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\david\\.nuget\\packages\\": {},
+    "C:\\Users\\babch\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft SDKs\\UWPNuGetPackages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\david\\Desktop\\Scorecity\\Scorecity\\Scorecity.csproj",
+      "projectUniqueName": "C:\\Users\\babch\\Desktop\\bbscores\\Scorecity\\Scorecity.csproj",
       "projectName": "Scorecity",
-      "projectPath": "C:\\Users\\david\\Desktop\\Scorecity\\Scorecity\\Scorecity.csproj",
-      "packagesPath": "C:\\Users\\david\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\david\\Desktop\\Scorecity\\Scorecity\\obj\\",
+      "projectPath": "C:\\Users\\babch\\Desktop\\bbscores\\Scorecity\\Scorecity.csproj",
+      "packagesPath": "C:\\Users\\babch\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\babch\\Desktop\\bbscores\\Scorecity\\obj\\",
       "projectStyle": "PackageReference",
       "skipContentFileWrite": true,
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft SDKs\\UWPNuGetPackages\\"
       ],
       "configFilePaths": [
-        "C:\\Users\\david\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\babch\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

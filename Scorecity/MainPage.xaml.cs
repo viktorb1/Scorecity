@@ -105,5 +105,5 @@ namespace Scorecity
             refreshScoreboard();
             startScoreboardTimer();
         }
-    }
+	}
 }
