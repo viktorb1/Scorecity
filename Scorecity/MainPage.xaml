@@ -1,0 +1,138 @@
+﻿<Page
+    x:Class="Scorecity.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Scorecity"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Name="topgrid">
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <ListBox ItemsSource="{x:Bind sb.data.games, Mode=OneWay}" Background="#252E3E" Grid.RowSpan="2" Name="scoresbox" ScrollViewer.VerticalScrollBarVisibility="Hidden" SelectionChanged="scoresbox_SelectionChanged">
+            <ListBox.ItemTemplate>
+                <DataTemplate x:DataType="local:Game">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="100"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="80"/>
+                            <RowDefinition Height="20"/>
+                        </Grid.RowDefinitions>
+
+                        <Rectangle Fill="{x:Bind hTeam.color, Mode=OneWay}"/>
+                        <Rectangle Grid.Column="2" Fill="{x:Bind vTeam.color, Mode=OneWay}" />
+                        <Rectangle Grid.Row="1"  Grid.ColumnSpan="2" Fill="Black" />
+
+                        <StackPanel VerticalAlignment="Center">
+                            <TextBlock Text="{x:Bind hTeam.score, Mode=OneWay}" FontSize="40" Foreground="White" HorizontalAlignment="Center" LineStackingStrategy="BlockLineHeight" LineHeight="40" Height="36" FontWeight="SemiBold"/>
+                            <TextBlock Text="{x:Bind hTeam.triCode, Mode=OneWay}" FontSize="20" Foreground="White" HorizontalAlignment="Center"
+								LineStackingStrategy="BlockLineHeight" LineHeight="22" Height="20"/>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <TextBlock Text="{x:Bind hTeam.win, Mode=OneWay}" FontSize="10" Foreground="White"/>
+                                <TextBlock Text="{x:Bind hTeam.loss, Mode=OneWay}" FontSize="10" Foreground="White"/>
+                            </StackPanel>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="2" VerticalAlignment="Center">
+                            <TextBlock Text="{x:Bind vTeam.score, Mode=OneWay}" FontSize="40" Foreground="White" HorizontalAlignment="Center" LineStackingStrategy="BlockLineHeight" LineHeight="40" Height="36" FontWeight="SemiBold"/>
+                            <TextBlock Text="{x:Bind vTeam.triCode, Mode=OneWay}" FontSize="20" Foreground="White" HorizontalAlignment="Center"
+								LineStackingStrategy="BlockLineHeight" LineHeight="22" Height="20"/>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <TextBlock Text="{x:Bind vTeam.win, Mode=OneWay}" FontSize="10" Foreground="White"/>
+                                <TextBlock Text="{x:Bind vTeam.loss, Mode=OneWay}" FontSize="10" Foreground="White"/>
+                            </StackPanel>
+                        </StackPanel>
+
+                        <TextBlock Grid.Row="1" HorizontalAlignment="Center" Text="{x:Bind period.current, Mode=OneWay}" FontSize="16" Foreground="White"/>
+                        <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" Text="{x:Bind clock, Mode=OneWay}" FontSize="16" Foreground="White"/>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+
+        <Grid Grid.Column="1">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <RelativePanel Background="#19212F">
+                <Button Foreground="White" Height="50" FontFamily="Segoe MDL2 Assets" Click="Button_Click">&#xE72B;</Button>
+                <CalendarDatePicker RelativePanel.AlignRightWithPanel="True" Margin="8" IsTodayHighlighted="True" Name="calendar" DateChanged="CalendarDatePicker_DateChanged"></CalendarDatePicker>
+            </RelativePanel>
+
+            <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                <Grid Grid.Row="1" Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <StackPanel>
+                        <GridView>
+                            <GridView.Resources>
+                                <Style TargetType="TextBlock" x:Key="BoxscoreHeader">
+                                    <Setter Property="Margin" Value="0 0 0 0"/>
+                                    <Setter Property="TextAlignment" Value="Center"/>
+                                    <Setter Property="FontWeight" Value="Bold"/>
+                                </Style>
+                            </GridView.Resources>
+
+                            <TextBlock Text="" Style="{StaticResource BoxscoreHeader}"/>
+                            <TextBlock Text="MIN" Style="{StaticResource BoxscoreHeader}"/>
+                            <TextBlock Text="PTS" Style="{StaticResource BoxscoreHeader}"/>
+                            <TextBlock Text="AST" Style="{StaticResource BoxscoreHeader}"/>
+                            <TextBlock Text="REB" Style="{StaticResource BoxscoreHeader}"/>
+                            <TextBlock Text="FG" Style="{StaticResource BoxscoreHeader}"/>
+                            <TextBlock Text="3PT" Style="{StaticResource BoxscoreHeader}"/>
+                            <TextBlock Text="FT" Style="{StaticResource BoxscoreHeader}"/>
+                            <TextBlock Text="STL" Style="{StaticResource BoxscoreHeader}"/>
+                            <TextBlock Text="BLK" Style="{StaticResource BoxscoreHeader}"/>
+                            <TextBlock Text="TOV" Style="{StaticResource BoxscoreHeader}"/>
+                            <TextBlock Text="PF" Style="{StaticResource BoxscoreHeader}"/>
+                        </GridView>
+
+                        <ItemsControl ItemsSource="{x:Bind gd.gameDetails.stats.activePlayers, Mode=OneWay}" Grid.Row="1">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate x:DataType="local:ActivePlayer">
+                                    <GridView>
+                                        <TextBlock Text="{x:Bind min, Mode=OneWay}" Width="40" TextAlignment="Center"/>
+                                        <TextBlock Text="{x:Bind points, Mode=OneWay}" Width="35" TextAlignment="Center"/>
+                                        <TextBlock Text="{x:Bind assists, Mode=OneWay}" Width="35" TextAlignment="Center"/>
+                                        <TextBlock Text="{x:Bind totReb, Mode=OneWay}" Width="35" TextAlignment="Center"/>
+
+                                        <TextBlock Width="60" TextAlignment="Center">
+                                        <Run Text="{x:Bind fgm, Mode=OneWay}"/>
+                                        <Run Text="{x:Bind fga, Mode=OneWay}"/>
+                                        </TextBlock>
+
+                                        <TextBlock Width="60" TextAlignment="Center">
+                                        <Run Text="{x:Bind tpm, Mode=OneWay}"/>
+                                        <Run Text="{x:Bind tpa, Mode=OneWay}"/>
+                                        </TextBlock>
+
+                                        <TextBlock Width="60" TextAlignment="Center">
+                                        <Run Text="{x:Bind ftm, Mode=OneWay}"/>
+                                        <Run Text="{x:Bind fta, Mode=OneWay}"/>
+                                        </TextBlock>
+
+                                        <TextBlock Text="{x:Bind steals, Mode=OneWay}" Width="35" TextAlignment="Center"/>
+                                        <TextBlock Text="{x:Bind blocks, Mode=OneWay}" Width="35" TextAlignment="Center"/>
+                                        <TextBlock Text="{x:Bind turnovers, Mode=OneWay}" Width="35" TextAlignment="Center"/>
+                                        <TextBlock Text="{x:Bind pFouls, Mode=OneWay}" Width="35" TextAlignment="Center"/>
+                                    </GridView>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+                </Grid>
+            </ScrollViewer>
+        </Grid>
+    </Grid>
+</Page>
