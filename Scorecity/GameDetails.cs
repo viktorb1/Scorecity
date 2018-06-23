@@ -12,13 +12,13 @@ using System.Threading.Tasks;
 
 namespace Scorecity
 {
-    public class GameDetails : ViewModelBase
+    public class GameDetails
     {
         private BoxScore _gameDetails;
         public BoxScore gameDetails
         {
             get { return _gameDetails; }
-            set { _gameDetails = value; this.OnPropertyChanged(); }
+            set { _gameDetails = value;  }
         }
 
         public async Task<BoxScore> loadGameDetailsAsync(string day, string gameID)

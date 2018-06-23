@@ -14,9 +14,9 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <ListBox ItemsSource="{x:Bind sb.data.games, Mode=OneWay}" Background="#252E3E" Grid.RowSpan="2" Name="scoresbox" ScrollViewer.VerticalScrollBarVisibility="Hidden" SelectionChanged="scoresbox_SelectionChanged">
+        <ListBox ItemsSource="{x:Bind Sbvm.Sb, Mode=OneWay}" Background="#252E3E" Grid.RowSpan="2" Name="scoresbox" ScrollViewer.VerticalScrollBarVisibility="Hidden" SelectionChanged="scoresbox_SelectionChanged">
             <ListBox.ItemTemplate>
-                <DataTemplate x:DataType="local:Game">
+                <DataTemplate x:DataType="local:ScoreBoard">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="100"/>
@@ -28,32 +28,32 @@
                             <RowDefinition Height="20"/>
                         </Grid.RowDefinitions>
 
-                        <Rectangle Fill="{x:Bind hTeam.color, Mode=OneWay}"/>
-                        <Rectangle Grid.Column="2" Fill="{x:Bind vTeam.color, Mode=OneWay}" />
+                        <!--<Rectangle Fill="{x:Bind hTeam.color, Mode=OneWay}"/>-->
+                        <!--<Rectangle Grid.Column="2" Fill="{x:Bind Away.TeamColor, Mode=OneWay}" />-->
                         <Rectangle Grid.Row="1"  Grid.ColumnSpan="2" Fill="Black" />
 
                         <StackPanel VerticalAlignment="Center">
-                            <TextBlock Text="{x:Bind hTeam.score, Mode=OneWay}" FontSize="40" Foreground="White" HorizontalAlignment="Center" LineStackingStrategy="BlockLineHeight" LineHeight="40" Height="36" FontWeight="SemiBold"/>
-                            <TextBlock Text="{x:Bind hTeam.triCode, Mode=OneWay}" FontSize="20" Foreground="White" HorizontalAlignment="Center"
+                            <TextBlock Text="{x:Bind Home.Score, Mode=OneWay}" FontSize="40" Foreground="White" HorizontalAlignment="Center" LineStackingStrategy="BlockLineHeight" LineHeight="40" Height="36" FontWeight="SemiBold"/>
+                            <TextBlock Text="{x:Bind Home.Name, Mode=OneWay}" FontSize="20" Foreground="White" HorizontalAlignment="Center"
 								LineStackingStrategy="BlockLineHeight" LineHeight="22" Height="20"/>
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <!--<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                 <TextBlock Text="{x:Bind hTeam.win, Mode=OneWay}" FontSize="10" Foreground="White"/>
                                 <TextBlock Text="{x:Bind hTeam.loss, Mode=OneWay}" FontSize="10" Foreground="White"/>
-                            </StackPanel>
+                            </StackPanel>-->
                         </StackPanel>
 
                         <StackPanel Grid.Column="2" VerticalAlignment="Center">
-                            <TextBlock Text="{x:Bind vTeam.score, Mode=OneWay}" FontSize="40" Foreground="White" HorizontalAlignment="Center" LineStackingStrategy="BlockLineHeight" LineHeight="40" Height="36" FontWeight="SemiBold"/>
-                            <TextBlock Text="{x:Bind vTeam.triCode, Mode=OneWay}" FontSize="20" Foreground="White" HorizontalAlignment="Center"
+                            <TextBlock Text="{x:Bind Away.Score, Mode=OneWay}" FontSize="40" Foreground="White" HorizontalAlignment="Center" LineStackingStrategy="BlockLineHeight" LineHeight="40" Height="36" FontWeight="SemiBold"/>
+                            <TextBlock Text="{x:Bind Away.Name, Mode=OneWay}" FontSize="20" Foreground="White" HorizontalAlignment="Center"
 								LineStackingStrategy="BlockLineHeight" LineHeight="22" Height="20"/>
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                <TextBlock Text="{x:Bind vTeam.win, Mode=OneWay}" FontSize="10" Foreground="White"/>
-                                <TextBlock Text="{x:Bind vTeam.loss, Mode=OneWay}" FontSize="10" Foreground="White"/>
-                            </StackPanel>
+                            <!--<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <TextBlock Text="{x:Bind Away.win, Mode=OneWay}" FontSize="10" Foreground="White"/>
+                                <TextBlock Text="{x:Bind Away.loss, Mode=OneWay}" FontSize="10" Foreground="White"/>
+                            </StackPanel>-->
                         </StackPanel>
 
-                        <TextBlock Grid.Row="1" HorizontalAlignment="Center" Text="{x:Bind period.current, Mode=OneWay}" FontSize="16" Foreground="White"/>
-                        <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" Text="{x:Bind clock, Mode=OneWay}" FontSize="16" Foreground="White"/>
+                        <!--<TextBlock Grid.Row="1" HorizontalAlignment="Center" Text="{x:Bind period.current, Mode=OneWay}" FontSize="16" Foreground="White"/>
+                        <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" Text="{x:Bind clock, Mode=OneWay}" FontSize="16" Foreground="White"/>-->
                     </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>
@@ -76,57 +76,60 @@
                 <Grid Grid.Row="1" Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center">
 					<StackPanel>
 
-						<ListView ItemsSource="{x:Bind gd.gameDetails.stats.activePlayers, Mode=OneWay}" Grid.Row="1">
+                        <ListView ItemsSource="{x:Bind gd.gameDetails.stats.activePlayers, Mode=OneWay}" Grid.Row="1" ItemContainerTransitions="{x:Null}" >
 							<ListView.Resources>
 								<Style TargetType="Button" x:Key="BoxscoreHeader">
-									<Setter Property="Margin" Value="0 0 0 0"/>
+									<Setter Property="Padding" Value="5 10"/>
 									<Setter Property="FontWeight" Value="Bold"/>
-								</Style>
+                                    <Setter Property="FontSize" Value="14"/>
+                                    <Setter Property="Width" Value="55"/>
+                                </Style>
 							</ListView.Resources>
 
 							<ListView.Header>
 								<StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Orientation="Horizontal">
-									<Button Style="{StaticResource BoxscoreHeader}">MIN</Button>
-									<Button Style="{StaticResource BoxscoreHeader}">PTS</Button>
-									<Button Style="{StaticResource BoxscoreHeader}">AST</Button>
-									<Button Style="{StaticResource BoxscoreHeader}">REB</Button>
-									<Button Style="{StaticResource BoxscoreHeader}">FG</Button>
-									<Button Style="{StaticResource BoxscoreHeader}">3PT</Button>
-									<Button Style="{StaticResource BoxscoreHeader}">FT</Button>
-									<Button Style="{StaticResource BoxscoreHeader}">STL</Button>
-									<Button Style="{StaticResource BoxscoreHeader}">BLK</Button>
-									<Button Style="{StaticResource BoxscoreHeader}">TOV</Button>
-									<Button Style="{StaticResource BoxscoreHeader}">PF</Button>
+                                    <Button Style="{StaticResource BoxscoreHeader}">MIN &#x25BE;</Button>
+                                    <Button Style="{StaticResource BoxscoreHeader}">PTS &#x25BE;</Button>
+                                    <Button Style="{StaticResource BoxscoreHeader}">AST &#x25BE;</Button>
+                                    <Button Style="{StaticResource BoxscoreHeader}">REB &#x25BE;</Button>
+                                    <Button Style="{StaticResource BoxscoreHeader}">FG &#x25BE;</Button>
+                                    <Button Style="{StaticResource BoxscoreHeader}">3PT &#x25BE;</Button>
+                                    <Button Style="{StaticResource BoxscoreHeader}">FT &#x25BE;</Button>
+                                    <Button Style="{StaticResource BoxscoreHeader}">STL &#x25BE;</Button>
+                                    <Button Style="{StaticResource BoxscoreHeader}">BLK &#x25BE;</Button>
+                                    <Button Style="{StaticResource BoxscoreHeader}">TOV &#x25BE;</Button>
+                                    <Button Style="{StaticResource BoxscoreHeader}">PF &#x25BE;</Button>
 								</StackPanel>
 							</ListView.Header>
 
-							<ListView.ItemTemplate>
-                                <DataTemplate x:DataType="local:ActivePlayer">
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="{x:Bind min, Mode=OneWay}" Width="40" TextAlignment="Center"/>
-                                        <TextBlock Text="{x:Bind points, Mode=OneWay}" Width="35" TextAlignment="Center"/>
-                                        <TextBlock Text="{x:Bind assists, Mode=OneWay}" Width="35" TextAlignment="Center"/>
-                                        <TextBlock Text="{x:Bind totReb, Mode=OneWay}" Width="35" TextAlignment="Center"/>
 
-                                        <TextBlock Width="60" TextAlignment="Center">
+                            <ListView.ItemTemplate>
+                                <DataTemplate x:DataType="local:ActivePlayer">
+                                    <StackPanel Orientation="Horizontal" Margin="-12 0">
+                                        <TextBlock Text="{x:Bind min, Mode=OneWay}" Width="55" TextAlignment="Center"/>
+                                        <TextBlock Text="{x:Bind points, Mode=OneWay}" Width="55" TextAlignment="Center"/>
+                                        <TextBlock Text="{x:Bind assists, Mode=OneWay}" Width="55" TextAlignment="Center"/>
+                                        <TextBlock Text="{x:Bind totReb, Mode=OneWay}" Width="55" TextAlignment="Center"/>
+
+                                        <TextBlock  Width="55" TextAlignment="Center">
                                         <Run Text="{x:Bind fgm, Mode=OneWay}"/>
                                         <Run Text="{x:Bind fga, Mode=OneWay}"/>
                                         </TextBlock>
 
-                                        <TextBlock Width="60" TextAlignment="Center">
+                                        <TextBlock  Width="55" TextAlignment="Center">
                                         <Run Text="{x:Bind tpm, Mode=OneWay}"/>
                                         <Run Text="{x:Bind tpa, Mode=OneWay}"/>
                                         </TextBlock>
 
-                                        <TextBlock Width="60" TextAlignment="Center">
+                                        <TextBlock Width="55" TextAlignment="Center">
                                         <Run Text="{x:Bind ftm, Mode=OneWay}"/>
                                         <Run Text="{x:Bind fta, Mode=OneWay}"/>
                                         </TextBlock>
 
-                                        <TextBlock Text="{x:Bind steals, Mode=OneWay}" Width="35" TextAlignment="Center"/>
-                                        <TextBlock Text="{x:Bind blocks, Mode=OneWay}" Width="35" TextAlignment="Center"/>
-                                        <TextBlock Text="{x:Bind turnovers, Mode=OneWay}" Width="35" TextAlignment="Center"/>
-                                        <TextBlock Text="{x:Bind pFouls, Mode=OneWay}" Width="35" TextAlignment="Center"/>
+                                        <TextBlock Text="{x:Bind steals, Mode=OneWay}" Width="55"  TextAlignment="Center"/>
+                                        <TextBlock Text="{x:Bind blocks, Mode=OneWay}"  Width="55" TextAlignment="Center"/>
+                                        <TextBlock Text="{x:Bind turnovers, Mode=OneWay}" Width="55" TextAlignment="Center"/>
+                                        <TextBlock Text="{x:Bind pFouls, Mode=OneWay}" Width="55" TextAlignment="Center"/>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListView.ItemTemplate>

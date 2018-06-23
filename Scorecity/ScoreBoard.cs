@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -12,53 +13,30 @@ using System.Threading.Tasks;
 
 namespace Scorecity
 {
-    public class ScoreBoardGetter : ViewModelBase
+    public class ScoreBoardGetter
     {
-        private ScoreBoard _data { get; set; }
-
-        public ScoreBoard data
-        {
-            get { return _data; }
-            set { _data = value; this.OnPropertyChanged(); }
-        }
-
-        public string result { get; set; }
-
-        public async Task<ScoreBoard> updateScoreBoard(string day)
+        static public async Task<RawData> updateScoreBoard(string day)
         {
             var http = new HttpClient();
             var url = "http://data.nba.net/data/10s/prod/v1/" + day + "/scoreboard.json";
             var response = await http.GetAsync(url);
-            var resulttemp = await response.Content.ReadAsStringAsync();
-
-            if (string.IsNullOrEmpty(result) || resulttemp != result)
+            var result = await response.Content.ReadAsStringAsync();
+            try
             {
-                result = resulttemp;
-                var serializer = new DataContractJsonSerializer(typeof(ScoreBoard));
-                var ms = new MemoryStream(Encoding.UTF8.GetBytes(resulttemp));
-                data = (ScoreBoard)serializer.ReadObject(ms);
-
-                for (int i = 0; i < data.numGames; i++)
-                {
-                    if (data.games[i].statusNum == 1)
-                    {
-                        data.games[i].hTeam.score = "0";
-                        data.games[i].vTeam.score = "0";
-                    }
-
-                    if (string.IsNullOrEmpty(data.games[i].clock) || data.games[i].clock == "0.0")
-                    {
-                        data.games[i].clock = "END";
-                    }
-                }
+                var serializer = new DataContractJsonSerializer(typeof(RawData));
+                var ms = new MemoryStream(Encoding.UTF8.GetBytes(result));
+                return (RawData)serializer.ReadObject(ms);
+            } catch (SerializationException e)
+            {
+                return null;
             }
 
-            return data;
+        
         }
     }
 
     [DataContract]
-    public class ScoreBoard
+    public class RawData
     {
         [DataMember]
         public int numGames { get; set; }
@@ -197,9 +175,9 @@ namespace Scorecity
         [DataMember]
         public Linescore[] linescore { get; set; }
 
-        public string color
-        {
-            get { return Teams.teams[triCode]; }
-        }
+        //public string color
+        //{
+        //    get { return Teams.teams[triCode]; }
+        //}
     }
 }

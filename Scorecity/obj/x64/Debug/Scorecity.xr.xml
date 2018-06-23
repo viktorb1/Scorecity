@@ -57,9 +57,11 @@
       <RootProperty Name="HorizontalAlignment" />
       <RootProperty Name="VerticalAlignment" />
       <RootProperty Name="Orientation" />
+      <RootProperty Name="Margin" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.ListView">
       <RootProperty Name="ItemsSource" />
+      <RootProperty Name="ItemContainerTransitions" />
       <RootProperty Name="Resources" />
       <RootProperty Name="Header" />
       <RootProperty Name="ItemTemplate" />
@@ -67,6 +69,7 @@
     <RootType FullName="Microsoft.Xaml.DirectUI.ProxyTypes.BindExtension">
       <RootProperty Name="Mode" />
     </RootType>
+    <RootType FullName="Microsoft.Xaml.DirectUI.ProxyTypes.NullExtension" />
     <RootType FullName="Windows.UI.Xaml.Controls.Button">
       <RootProperty Name="Style" />
       <RootProperty Name="Content" />
@@ -75,11 +78,13 @@
       <RootProperty Name="FontFamily" />
       <RootEvent Name="Click" />
     </RootType>
-    <RootType FullName="Windows.UI.Xaml.FrameworkElement">
-      <RootProperty Name="Margin" />
-    </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.Control">
+      <RootProperty Name="Padding" />
       <RootProperty Name="FontWeight" />
+      <RootProperty Name="FontSize" />
+    </RootType>
+    <RootType FullName="Windows.UI.Xaml.FrameworkElement">
+      <RootProperty Name="Width" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Setter">
       <RootProperty Name="Property" />
@@ -94,9 +99,9 @@
       <RootProperty Name="Width" />
       <RootProperty Name="TextAlignment" />
       <RootProperty Name="Inlines" />
-      <RootProperty Name="HorizontalAlignment" />
       <RootProperty Name="FontSize" />
       <RootProperty Name="Foreground" />
+      <RootProperty Name="HorizontalAlignment" />
       <RootProperty Name="LineStackingStrategy" />
       <RootProperty Name="LineHeight" />
       <RootProperty Name="Height" />

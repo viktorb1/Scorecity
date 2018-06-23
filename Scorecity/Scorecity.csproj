@@ -96,6 +96,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Calendar.cs" />
+    <Compile Include="ScoreBoard_ViewModel.cs" />
     <Compile Include="ViewModelBase.cs" />
     <Compile Include="GameDetails.cs" />
     <Compile Include="Teams.cs" />

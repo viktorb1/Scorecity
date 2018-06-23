@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -28,36 +29,32 @@ namespace Scorecity
     /// </summary>
 	public sealed partial class MainPage : Page
     {
-        public Teams teams { get; set; }
-        public ScoreBoardGetter sb { get; set; }
+
         public GameDetails gd { get; set; }
         public string date { get; set; }
+        public ScoreBoardViewModel Sbvm { get; set; }
         ThreadPoolTimer PeriodicTimer;
-        int userSelectedGame = 0;
 
         public MainPage()
         {
             this.InitializeComponent();
-            teams = new Teams();
-            sb = new ScoreBoardGetter();
             gd = new GameDetails();
             date = DateTime.Now.ToString("yyyyMMdd");
-            startScoreboardTimer();
+            date = "20180307";
+            Sbvm = new ScoreBoardViewModel();
             refreshScoreboard();
+            //startScoreboardTimer();
         }
 
         private async void refreshScoreboard()
         {
-            await sb.updateScoreBoard(date);
+            await Sbvm.updateScoreBoardViewModel(date);
 
-            if (scoresbox.Items.Count > 0)
-            {
-                if (scoresbox.SelectedIndex == -1)
-                    scoresbox.SelectedIndex = 0;
+            if (scoresbox.Items.Count > 0 && scoresbox.SelectedIndex == -1)
+               scoresbox.SelectedIndex = 0;
 
-                userSelectedGame = scoresbox.SelectedIndex;
-                await gd.loadGameDetailsAsync(date, sb.data.games[userSelectedGame].gameId);
-            }
+            if (scoresbox.SelectedIndex > 0) ;
+                //await gd.loadGameDetailsAsync(date, Sbvm.Sb[scoresbox.SelectedIndex].gameId);
         }
 
 
@@ -92,18 +89,18 @@ namespace Scorecity
         {
             if (calendar.Date.HasValue)
             {
-                PeriodicTimer.Cancel();
+                //PeriodicTimer.Cancel();
                 date = calendar.Date.Value.ToString("yyyyMMdd");
                 refreshScoreboard();
-                startScoreboardTimer();
+                //startScoreboardTimer();
             }
         }
 
         private void scoresbox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            PeriodicTimer.Cancel();
-            refreshScoreboard();
-            startScoreboardTimer();
+                //PeriodicTimer.Cancel();
+                refreshScoreboard();
+                //startScoreboardTimer();
         }
 	}
 }

@@ -12,7 +12,7 @@ namespace Scorecity
     {
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
 
-        public void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        public void NotifyPropertyChanged([CallerMemberName] string propertyName = null)
         {
             this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }

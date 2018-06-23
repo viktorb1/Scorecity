@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <Machine>B4MJ927</Machine>
-    <WindowsUser>babch</WindowsUser>
+    <Machine>DESKTOP-A5GA9K8</Machine>
+    <WindowsUser>david</WindowsUser>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetOsVersion>10.0</TargetOsVersion>
     <TargetOsDescription>Windows 10.0</TargetOsDescription>
@@ -10,7 +10,7 @@
     <PackageArchitecture>x64</PackageArchitecture>
     <PackageIdentityName>96c5806e-55a8-496f-90a7-7e53e081fbf5</PackageIdentityName>
     <PackageIdentityPublisher>CN=david</PackageIdentityPublisher>
-    <IntermediateOutputPath>C:\Users\babch\Desktop\bbscores\Scorecity\obj\x64\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\david\Desktop\bbscores\Scorecity\obj\x64\Debug\</IntermediateOutputPath>
     <RemoteDeploymentType>
     </RemoteDeploymentType>
     <PackageRegistrationPath>
@@ -18,7 +18,7 @@
     <RemoveNonLayoutFiles>true</RemoveNonLayoutFiles>
     <DeployOptionalPackages>false</DeployOptionalPackages>
     <WindowsSdkPath>C:\Program Files %28x86%29\Windows Kits\10\</WindowsSdkPath>
-    <LayoutDir>C:\Users\babch\Desktop\bbscores\Scorecity\bin\x64\Debug\AppX</LayoutDir>
+    <LayoutDir>C:\Users\david\Desktop\bbscores\Scorecity\bin\x64\Debug\AppX</LayoutDir>
     <RegisteredManifestChecksum>DAA7B78EC929E6871F6A31040EB25CAB25BA3564932E338E0F76DA30681F107F</RegisteredManifestChecksum>
     <RegisteredPackageMoniker>96c5806e-55a8-496f-90a7-7e53e081fbf5_1.0.0.0_x64__damzpawhsp48w</RegisteredPackageMoniker>
     <RegisteredUserModeAppID>96c5806e-55a8-496f-90a7-7e53e081fbf5_damzpawhsp48w!App</RegisteredUserModeAppID>
@@ -28,16 +28,16 @@
     <JitOptimizationSuppressed>True</JitOptimizationSuppressed>
   </PropertyGroup>
   <ItemGroup>
-    <AppXManifest Include="C:\Users\babch\Desktop\bbscores\Scorecity\bin\x64\Debug\Core\AppxManifest.xml">
+    <AppXManifest Include="C:\Users\david\Desktop\bbscores\Scorecity\bin\x64\Debug\Core\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2018-06-15T06:26:59.107</Modified>
+      <Modified>2018-06-23T21:04:22.830</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
-    <AppxPackagedFile Include="C:\Users\babch\Desktop\bbscores\Scorecity\bin\x64\Debug\Scorecity.exe">
+    <AppxPackagedFile Include="C:\Users\david\Desktop\bbscores\Scorecity\bin\x64\Debug\Scorecity.exe">
       <PackagePath>entrypoint\Scorecity.exe</PackagePath>
-      <Modified>2018-06-15T06:26:58.354</Modified>
+      <Modified>2018-06-23T21:04:22.672</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Microsoft SDKs\UWPNuGetPackages\microsoft.csharp\4.0.1\lib\netcore50\Microsoft.CSharp.dll">
       <PackagePath>Microsoft.CSharp.dll</PackagePath>
@@ -495,68 +495,68 @@
       <PackagePath>System.Xml.XmlSerializer.dll</PackagePath>
       <Modified>2016-06-12T06:15:04.000</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\babch\Desktop\bbscores\Scorecity\Properties\Default.rd.xml">
+    <AppxPackagedFile Include="C:\Users\david\Desktop\bbscores\Scorecity\Properties\Default.rd.xml">
       <PackagePath>Properties\Default.rd.xml</PackagePath>
-      <Modified>2018-06-15T03:21:56.986</Modified>
+      <Modified>2018-06-16T02:49:34.781</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\babch\Desktop\bbscores\Scorecity\Assets\LockScreenLogo.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\david\Desktop\bbscores\Scorecity\Assets\LockScreenLogo.scale-200.png">
       <PackagePath>Assets\LockScreenLogo.scale-200.png</PackagePath>
-      <Modified>2018-06-15T03:21:56.955</Modified>
+      <Modified>2018-06-16T02:49:34.776</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\babch\Desktop\bbscores\Scorecity\Assets\SplashScreen.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\david\Desktop\bbscores\Scorecity\Assets\SplashScreen.scale-200.png">
       <PackagePath>Assets\SplashScreen.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2018-06-15T03:21:56.955</Modified>
+      <Modified>2018-06-16T02:49:34.777</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\babch\Desktop\bbscores\Scorecity\Assets\Square150x150Logo.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\david\Desktop\bbscores\Scorecity\Assets\Square150x150Logo.scale-200.png">
       <PackagePath>Assets\Square150x150Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2018-06-15T03:21:56.970</Modified>
+      <Modified>2018-06-16T02:49:34.777</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\babch\Desktop\bbscores\Scorecity\Assets\Square44x44Logo.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\david\Desktop\bbscores\Scorecity\Assets\Square44x44Logo.scale-200.png">
       <PackagePath>Assets\Square44x44Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2018-06-15T03:21:56.970</Modified>
+      <Modified>2018-06-16T02:49:34.777</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\babch\Desktop\bbscores\Scorecity\Assets\Square44x44Logo.targetsize-24_altform-unplated.png">
+    <AppxPackagedFile Include="C:\Users\david\Desktop\bbscores\Scorecity\Assets\Square44x44Logo.targetsize-24_altform-unplated.png">
       <PackagePath>Assets\Square44x44Logo.targetsize-24_altform-unplated.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2018-06-15T03:21:56.970</Modified>
+      <Modified>2018-06-16T02:49:34.778</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\babch\Desktop\bbscores\Scorecity\Assets\StoreLogo.png">
+    <AppxPackagedFile Include="C:\Users\david\Desktop\bbscores\Scorecity\Assets\StoreLogo.png">
       <PackagePath>Assets\StoreLogo.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2018-06-15T03:21:56.970</Modified>
+      <Modified>2018-06-16T02:49:34.778</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\babch\Desktop\bbscores\Scorecity\Assets\Wide310x150Logo.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\david\Desktop\bbscores\Scorecity\Assets\Wide310x150Logo.scale-200.png">
       <PackagePath>Assets\Wide310x150Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2018-06-15T03:21:56.970</Modified>
+      <Modified>2018-06-16T02:49:34.778</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\babch\Desktop\bbscores\Scorecity\bin\x64\Debug\Scorecity.xr.xml">
+    <AppxPackagedFile Include="C:\Users\david\Desktop\bbscores\Scorecity\bin\x64\Debug\Scorecity.xr.xml">
       <PackagePath>Scorecity.xr.xml</PackagePath>
-      <Modified>2018-06-15T06:26:57.900</Modified>
+      <Modified>2018-06-23T07:45:55.218</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\babch\Desktop\bbscores\Scorecity\bin\x64\Debug\App.xbf">
+    <AppxPackagedFile Include="C:\Users\david\Desktop\bbscores\Scorecity\bin\x64\Debug\App.xbf">
       <PackagePath>App.xbf</PackagePath>
-      <Modified>2018-06-15T06:26:57.923</Modified>
+      <Modified>2018-06-23T21:04:22.557</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\babch\Desktop\bbscores\Scorecity\bin\x64\Debug\MainPage.xbf">
+    <AppxPackagedFile Include="C:\Users\david\Desktop\bbscores\Scorecity\bin\x64\Debug\MainPage.xbf">
       <PackagePath>MainPage.xbf</PackagePath>
-      <Modified>2018-06-15T06:26:57.924</Modified>
+      <Modified>2018-06-23T21:04:22.557</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Windows Kits\10\UnionMetadata\10.0.17134.0\Windows.winmd">
       <PackagePath>WinMetadata\Windows.winmd</PackagePath>
       <Modified>2018-04-20T05:01:52.000</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\babch\Desktop\bbscores\Scorecity\bin\x64\Debug\resources.pri">
+    <AppxPackagedFile Include="C:\Users\david\Desktop\bbscores\Scorecity\bin\x64\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2018-06-15T05:14:47.514</Modified>
+      <Modified>2018-06-19T01:40:31.644</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\babch\Desktop\bbscores\Scorecity\bin\x64\Debug\Core\Scorecity.exe">
+    <AppxPackagedFile Include="C:\Users\david\Desktop\bbscores\Scorecity\bin\x64\Debug\Core\Scorecity.exe">
       <PackagePath>Scorecity.exe</PackagePath>
-      <Modified>2018-06-15T06:26:59.101</Modified>
+      <Modified>2018-06-23T21:04:22.829</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>

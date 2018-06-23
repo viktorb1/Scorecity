@@ -14,9 +14,9 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <ListBox x:ConnectionId='3'                                                   Background="#252E3E" Grid.RowSpan="2" Name="scoresbox" ScrollViewer.VerticalScrollBarVisibility="Hidden"                                              >
+        <ListBox x:ConnectionId='3'                                             Background="#252E3E" Grid.RowSpan="2" Name="scoresbox" ScrollViewer.VerticalScrollBarVisibility="Hidden"                                              >
             <ListBox.ItemTemplate>
-                <DataTemplate                        >
+                <DataTemplate                              >
                     <Grid x:ConnectionId='22'>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="100"/>
@@ -28,32 +28,32 @@
                             <RowDefinition Height="20"/>
                         </Grid.RowDefinitions>
 
-                        <Rectangle x:ConnectionId='23'                                         />
-                        <Rectangle x:ConnectionId='24' Grid.Column="2"                                          />
+                        <!--<Rectangle Fill="{x:Bind hTeam.color, Mode=OneWay}"/>-->
+                        <!--<Rectangle Grid.Column="2" Fill="{x:Bind Away.TeamColor, Mode=OneWay}" />-->
                         <Rectangle Grid.Row="1"  Grid.ColumnSpan="2" Fill="Black" />
 
                         <StackPanel VerticalAlignment="Center">
-                            <TextBlock x:ConnectionId='31'                                          FontSize="40" Foreground="White" HorizontalAlignment="Center" LineStackingStrategy="BlockLineHeight" LineHeight="40" Height="36" FontWeight="SemiBold"/>
-                            <TextBlock x:ConnectionId='32'                                            FontSize="20" Foreground="White" HorizontalAlignment="Center"
+                            <TextBlock x:ConnectionId='25'                                         FontSize="40" Foreground="White" HorizontalAlignment="Center" LineStackingStrategy="BlockLineHeight" LineHeight="40" Height="36" FontWeight="SemiBold"/>
+                            <TextBlock x:ConnectionId='26'                                        FontSize="20" Foreground="White" HorizontalAlignment="Center"
 								LineStackingStrategy="BlockLineHeight" LineHeight="22" Height="20"/>
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                <TextBlock x:ConnectionId='33'                                        FontSize="10" Foreground="White"/>
-                                <TextBlock x:ConnectionId='34'                                         FontSize="10" Foreground="White"/>
-                            </StackPanel>
+                            <!--<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <TextBlock Text="{x:Bind hTeam.win, Mode=OneWay}" FontSize="10" Foreground="White"/>
+                                <TextBlock Text="{x:Bind hTeam.loss, Mode=OneWay}" FontSize="10" Foreground="White"/>
+                            </StackPanel>-->
                         </StackPanel>
 
                         <StackPanel Grid.Column="2" VerticalAlignment="Center">
-                            <TextBlock x:ConnectionId='27'                                          FontSize="40" Foreground="White" HorizontalAlignment="Center" LineStackingStrategy="BlockLineHeight" LineHeight="40" Height="36" FontWeight="SemiBold"/>
-                            <TextBlock x:ConnectionId='28'                                            FontSize="20" Foreground="White" HorizontalAlignment="Center"
+                            <TextBlock x:ConnectionId='23'                                         FontSize="40" Foreground="White" HorizontalAlignment="Center" LineStackingStrategy="BlockLineHeight" LineHeight="40" Height="36" FontWeight="SemiBold"/>
+                            <TextBlock x:ConnectionId='24'                                        FontSize="20" Foreground="White" HorizontalAlignment="Center"
 								LineStackingStrategy="BlockLineHeight" LineHeight="22" Height="20"/>
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                <TextBlock x:ConnectionId='29'                                        FontSize="10" Foreground="White"/>
-                                <TextBlock x:ConnectionId='30'                                         FontSize="10" Foreground="White"/>
-                            </StackPanel>
+                            <!--<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <TextBlock Text="{x:Bind Away.win, Mode=OneWay}" FontSize="10" Foreground="White"/>
+                                <TextBlock Text="{x:Bind Away.loss, Mode=OneWay}" FontSize="10" Foreground="White"/>
+                            </StackPanel>-->
                         </StackPanel>
 
-                        <TextBlock x:ConnectionId='25' Grid.Row="1" HorizontalAlignment="Center"                                             FontSize="16" Foreground="White"/>
-                        <TextBlock x:ConnectionId='26' Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center"                                    FontSize="16" Foreground="White"/>
+                        <!--<TextBlock Grid.Row="1" HorizontalAlignment="Center" Text="{x:Bind period.current, Mode=OneWay}" FontSize="16" Foreground="White"/>
+                        <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" Text="{x:Bind clock, Mode=OneWay}" FontSize="16" Foreground="White"/>-->
                     </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>
@@ -76,58 +76,60 @@
                 <Grid Grid.Row="1" Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center">
 					<StackPanel>
 
-						<ListView x:ConnectionId='4'                                                                        Grid.Row="1">
+                        <ListView x:ConnectionId='4'                                                                        Grid.Row="1" ItemContainerTransitions="{x:Null}" >
 							<ListView.Resources>
 								<Style TargetType="Button" x:Key="BoxscoreHeader">
-									<Setter Property="Margin" Value="0 0 0 0"/>
+									<Setter Property="Padding" Value="5 10"/>
 									<Setter Property="FontWeight" Value="Bold"/>
-								</Style>
+                                    <Setter Property="FontSize" Value="14"/>
+                                    <Setter Property="Width" Value="55"/>
+                                </Style>
 							</ListView.Resources>
 
 							<ListView.Header>
 								<StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Orientation="Horizontal">
-									<Button Style="{StaticResource BoxscoreHeader}"></Button>
-									<Button Style="{StaticResource BoxscoreHeader}">MIN</Button>
-									<Button Style="{StaticResource BoxscoreHeader}">PTS</Button>
-									<Button Style="{StaticResource BoxscoreHeader}">AST</Button>
-									<Button Style="{StaticResource BoxscoreHeader}">REB</Button>
-									<Button Style="{StaticResource BoxscoreHeader}">FG</Button>
-									<Button Style="{StaticResource BoxscoreHeader}">3PT</Button>
-									<Button Style="{StaticResource BoxscoreHeader}">FT</Button>
-									<Button Style="{StaticResource BoxscoreHeader}">STL</Button>
-									<Button Style="{StaticResource BoxscoreHeader}">BLK</Button>
-									<Button Style="{StaticResource BoxscoreHeader}">TOV</Button>
-									<Button Style="{StaticResource BoxscoreHeader}">PF</Button>
+                                    <Button Style="{StaticResource BoxscoreHeader}">MIN &#x25BE;</Button>
+                                    <Button Style="{StaticResource BoxscoreHeader}">PTS &#x25BE;</Button>
+                                    <Button Style="{StaticResource BoxscoreHeader}">AST &#x25BE;</Button>
+                                    <Button Style="{StaticResource BoxscoreHeader}">REB &#x25BE;</Button>
+                                    <Button Style="{StaticResource BoxscoreHeader}">FG &#x25BE;</Button>
+                                    <Button Style="{StaticResource BoxscoreHeader}">3PT &#x25BE;</Button>
+                                    <Button Style="{StaticResource BoxscoreHeader}">FT &#x25BE;</Button>
+                                    <Button Style="{StaticResource BoxscoreHeader}">STL &#x25BE;</Button>
+                                    <Button Style="{StaticResource BoxscoreHeader}">BLK &#x25BE;</Button>
+                                    <Button Style="{StaticResource BoxscoreHeader}">TOV &#x25BE;</Button>
+                                    <Button Style="{StaticResource BoxscoreHeader}">PF &#x25BE;</Button>
 								</StackPanel>
 							</ListView.Header>
 
-							<ListView.ItemTemplate>
-                                <DataTemplate                                >
-                                    <StackPanel x:ConnectionId='5' Orientation="Horizontal">
-                                        <TextBlock x:ConnectionId='6'                                  Width="40" TextAlignment="Center"/>
-                                        <TextBlock x:ConnectionId='7'                                     Width="35" TextAlignment="Center"/>
-                                        <TextBlock x:ConnectionId='8'                                      Width="35" TextAlignment="Center"/>
-                                        <TextBlock x:ConnectionId='9'                                     Width="35" TextAlignment="Center"/>
 
-                                        <TextBlock Width="60" TextAlignment="Center">
+                            <ListView.ItemTemplate>
+                                <DataTemplate                                >
+                                    <StackPanel x:ConnectionId='5' Orientation="Horizontal" Margin="-12 0">
+                                        <TextBlock x:ConnectionId='6'                                  Width="55" TextAlignment="Center"/>
+                                        <TextBlock x:ConnectionId='7'                                     Width="55" TextAlignment="Center"/>
+                                        <TextBlock x:ConnectionId='8'                                      Width="55" TextAlignment="Center"/>
+                                        <TextBlock x:ConnectionId='9'                                     Width="55" TextAlignment="Center"/>
+
+                                        <TextBlock  Width="55" TextAlignment="Center">
                                         <Run x:ConnectionId='18'                                 />
                                         <Run x:ConnectionId='19'                                 />
                                         </TextBlock>
 
-                                        <TextBlock Width="60" TextAlignment="Center">
+                                        <TextBlock  Width="55" TextAlignment="Center">
                                         <Run x:ConnectionId='16'                                 />
                                         <Run x:ConnectionId='17'                                 />
                                         </TextBlock>
 
-                                        <TextBlock Width="60" TextAlignment="Center">
+                                        <TextBlock Width="55" TextAlignment="Center">
                                         <Run x:ConnectionId='14'                                 />
                                         <Run x:ConnectionId='15'                                 />
                                         </TextBlock>
 
-                                        <TextBlock x:ConnectionId='10'                                     Width="35" TextAlignment="Center"/>
-                                        <TextBlock x:ConnectionId='11'                                     Width="35" TextAlignment="Center"/>
-                                        <TextBlock x:ConnectionId='12'                                        Width="35" TextAlignment="Center"/>
-                                        <TextBlock x:ConnectionId='13'                                     Width="35" TextAlignment="Center"/>
+                                        <TextBlock x:ConnectionId='10'                                     Width="55"  TextAlignment="Center"/>
+                                        <TextBlock x:ConnectionId='11'                                      Width="55" TextAlignment="Center"/>
+                                        <TextBlock x:ConnectionId='12'                                        Width="55" TextAlignment="Center"/>
+                                        <TextBlock x:ConnectionId='13'                                     Width="55" TextAlignment="Center"/>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListView.ItemTemplate>
