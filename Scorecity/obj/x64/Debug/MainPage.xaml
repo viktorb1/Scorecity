@@ -14,7 +14,7 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <ListBox x:ConnectionId='3'                                             Background="#252E3E" Grid.RowSpan="2" Name="scoresbox" ScrollViewer.VerticalScrollBarVisibility="Hidden"                                              >
+        <ListBox x:ConnectionId='3'                                             Background="#252E3E" Grid.RowSpan="2" Name="scoresbox"                                              >
             <ListBox.ItemTemplate>
                 <DataTemplate                              >
                     <Grid x:ConnectionId='22'>
@@ -25,16 +25,16 @@
 
                         <Grid.RowDefinitions>
                             <RowDefinition Height="80"/>
-                            <RowDefinition Height="20"/>
+                            <RowDefinition Height="30"/>
                         </Grid.RowDefinitions>
 
-                        <!--<Rectangle Fill="{x:Bind hTeam.color, Mode=OneWay}"/>-->
-                        <!--<Rectangle Grid.Column="2" Fill="{x:Bind Away.TeamColor, Mode=OneWay}" />-->
+                        <Rectangle x:ConnectionId='23'                                            />
+                        <Rectangle x:ConnectionId='24'                                             Grid.Column="1"/>
                         <Rectangle Grid.Row="1"  Grid.ColumnSpan="2" Fill="Black" />
 
                         <StackPanel VerticalAlignment="Center">
-                            <TextBlock x:ConnectionId='25'                                         FontSize="40" Foreground="White" HorizontalAlignment="Center" LineStackingStrategy="BlockLineHeight" LineHeight="40" Height="36" FontWeight="SemiBold"/>
-                            <TextBlock x:ConnectionId='26'                                        FontSize="20" Foreground="White" HorizontalAlignment="Center"
+                            <TextBlock x:ConnectionId='28'                                         FontSize="40" Foreground="White" HorizontalAlignment="Center" LineStackingStrategy="BlockLineHeight" LineHeight="40" Height="36" FontWeight="SemiBold"/>
+                            <TextBlock x:ConnectionId='29'                                        FontSize="20" Foreground="White" HorizontalAlignment="Center"
 								LineStackingStrategy="BlockLineHeight" LineHeight="22" Height="20"/>
                             <!--<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                 <TextBlock Text="{x:Bind hTeam.win, Mode=OneWay}" FontSize="10" Foreground="White"/>
@@ -42,9 +42,9 @@
                             </StackPanel>-->
                         </StackPanel>
 
-                        <StackPanel Grid.Column="2" VerticalAlignment="Center">
-                            <TextBlock x:ConnectionId='23'                                         FontSize="40" Foreground="White" HorizontalAlignment="Center" LineStackingStrategy="BlockLineHeight" LineHeight="40" Height="36" FontWeight="SemiBold"/>
-                            <TextBlock x:ConnectionId='24'                                        FontSize="20" Foreground="White" HorizontalAlignment="Center"
+                        <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                            <TextBlock x:ConnectionId='26'                                         FontSize="40" Foreground="White" HorizontalAlignment="Center" LineStackingStrategy="BlockLineHeight" LineHeight="40" Height="36" FontWeight="SemiBold"/>
+                            <TextBlock x:ConnectionId='27'                                        FontSize="20" Foreground="White" HorizontalAlignment="Center"
 								LineStackingStrategy="BlockLineHeight" LineHeight="22" Height="20"/>
                             <!--<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                 <TextBlock Text="{x:Bind Away.win, Mode=OneWay}" FontSize="10" Foreground="White"/>
@@ -52,8 +52,7 @@
                             </StackPanel>-->
                         </StackPanel>
 
-                        <!--<TextBlock Grid.Row="1" HorizontalAlignment="Center" Text="{x:Bind period.current, Mode=OneWay}" FontSize="16" Foreground="White"/>
-                        <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" Text="{x:Bind clock, Mode=OneWay}" FontSize="16" Foreground="White"/>-->
+                        <TextBlock x:ConnectionId='25' Grid.Row="1" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center"                                           FontSize="16" Foreground="White"/>
                     </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>

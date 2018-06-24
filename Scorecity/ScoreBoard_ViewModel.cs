@@ -13,6 +13,7 @@ namespace Scorecity
     public class ScoreBoardViewModel
     {
         public ObservableCollection<ScoreBoard> Sb { get; set; }
+        private string oldDate;
 
         public ScoreBoardViewModel()
         {
@@ -23,45 +24,69 @@ namespace Scorecity
         {
             var raw = await ScoreBoardGetter.updateScoreBoard(date);
 
-            if (raw == null) // no response object
+            if (raw == null) { // no games for that dateoldDate = date;
+                oldDate = date;
                 Sb.Clear();
-            else if (raw.numGames != Sb.Count) // different set of games
-            {
-                Sb.Clear();
-
-                for (int i = 0; i < raw.numGames; i++)
-                {
-                    Sb.Add(new ScoreBoard());
-                    Sb[i].Home.Name = raw.games[i].hTeam.triCode;
-                    Sb[i].Home.Score = raw.games[i].hTeam.score;
-                    Sb[i].Away.Name = raw.games[i].vTeam.triCode;
-                    Sb[i].Away.Score = raw.games[i].vTeam.score;
-
-                    if (raw.games[i].statusNum == 1)
-                        Sb[i].Home.Status = "GAME HAS NOT STARTED";
-                    else if (raw.games[i].statusNum == 2)
-                    { // GAME IS IN PROGRESS
-                        if (raw.games[i].period.isHalftime)
-                            Sb[i].Home.Status = "HALFTIME";
-                        if (raw.games[i].period.isEndOfPeriod)
-                            Sb[i].Home.Status = "END OF QUARTER " + raw.games[i].period.current;
-                        else
-                            Sb[i].Home.Status = "QUARTER: " + raw.games[i].period.current + "TIME LEFT: " + raw.games[i].clock;
-                    }
-                    else // GAME ENDED
-                        Sb[i].Home.Status = "GAME HAS ENDED";
-                }
-            } else { // update same set of games
-                for (int i = 0; i < raw.numGames; i++)
-                {
-                    Sb[i].Home.Name = raw.games[i].hTeam.triCode;
-                    Sb[i].Home.Score = raw.games[i].hTeam.score;
-                    Sb[i].Away.Name = raw.games[i].vTeam.triCode;
-                    Sb[i].Away.Score = raw.games[i].vTeam.score;
-                }
+            } else if (oldDate == null || oldDate != date) { // date changed
+                oldDate = date;
+                LoadView(raw);
+            } else { // same date
+                UpdateView(raw);
             }
 
             return Sb;
+        }
+
+        public void LoadView(RawData raw)
+        {
+            var colors = new TeamColors().teams;
+            Sb.Clear();
+
+            for (int i = 0; i < raw.numGames; i++)
+            {
+                var Home = new Team(raw.games[i].hTeam.triCode, generateScore(raw.games[i].hTeam.score), colors[raw.games[i].hTeam.triCode]);
+                var Away = new Team(raw.games[i].vTeam.triCode, generateScore(raw.games[i].vTeam.score), colors[raw.games[i].vTeam.triCode]);
+                string status = generateStatus(raw.games[i]);
+                var NewSb = new ScoreBoard(Home, Away, status, raw.games[i].gameId);
+                Sb.Add(NewSb);
+            }
+        }
+
+        public void UpdateView(RawData raw)
+        {
+            for (int i = 0; i < raw.numGames; i++)
+            {
+                Sb[i].Home.Score = generateScore(raw.games[i].hTeam.score);
+                Sb[i].Away.Score = generateScore(raw.games[i].vTeam.score);
+                Sb[i].BottomStatus = generateStatus(raw.games[i]);
+            }
+        }
+
+        public string generateScore(string score) {
+            if (score == "")
+                return "0";
+            
+            return score;
+        }
+
+        public string generateStatus(Game raw)
+        {
+            string status;
+
+            if (raw.statusNum == 1)
+                status = "GAME HAS NOT STARTED";
+            else if (raw.statusNum == 2) { // GAME IS IN PROGRESS
+                if (raw.period.isHalftime)
+                    status = "HALFTIME";
+                if (raw.period.isEndOfPeriod)
+                    status = "END OF QUARTER " + raw.period.current;
+                else
+                    status = "QUARTER: " + raw.period.current + "TIME LEFT: " + raw.clock;
+            }
+            else // GAME ENDED
+                status = "THIS GAME HAS ENDED";
+
+            return status;
         }
     }
 
@@ -95,10 +120,12 @@ namespace Scorecity
             set { if (value != gameid) { gameid = value; NotifyPropertyChanged(); } }
         }
 
-        public ScoreBoard()
+        public ScoreBoard(Team Home, Team Away, string BottomStatus, string GameId) 
         {
-            Home = new Team();
-            Away = new Team();
+            this.Home = Home;
+            this.Away = Away;
+            this.BottomStatus = BottomStatus;
+            this.GameId = GameId;
         }
     }
 
@@ -107,8 +134,14 @@ namespace Scorecity
     {
         private string name;
         private string score { get; set; }
-        public string status { get; set; }
-        public string teamcolor { get; set; }
+        private string teamcolor { get; set; }
+
+        public Team(string Name, string Score, string TeamColor)
+        {
+            this.Name = Name;
+            this.Score = Score;
+            this.TeamColor = TeamColor;
+        }
 
         public string Name
         {
@@ -120,12 +153,6 @@ namespace Scorecity
         {
             get { return score; }
             set { if (value != score) { score = value; NotifyPropertyChanged(); } }
-        }
-
-        public string Status
-        {
-            get { return status; }
-            set { if (value != status) { status = value; NotifyPropertyChanged(); } }
         }
 
         public string TeamColor

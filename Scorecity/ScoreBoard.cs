@@ -21,17 +21,13 @@ namespace Scorecity
             var url = "http://data.nba.net/data/10s/prod/v1/" + day + "/scoreboard.json";
             var response = await http.GetAsync(url);
             var result = await response.Content.ReadAsStringAsync();
-            try
-            {
-                var serializer = new DataContractJsonSerializer(typeof(RawData));
-                var ms = new MemoryStream(Encoding.UTF8.GetBytes(result));
-                return (RawData)serializer.ReadObject(ms);
-            } catch (SerializationException e)
-            {
-                return null;
-            }
+            var serializer = new DataContractJsonSerializer(typeof(RawData));
+            var ms = new MemoryStream(Encoding.UTF8.GetBytes(result));
 
-        
+            if (ms.Length > 0)
+                return (RawData)serializer.ReadObject(ms);
+            else
+                return null;
         }
     }
 
@@ -141,11 +137,6 @@ namespace Scorecity
         public string score { get; set; }
         [DataMember]
         public Linescore[] linescore { get; set; }
-
-        public string color
-        {
-            get { return Teams.teams[triCode]; }
-        }
     }
 
     [DataContract]

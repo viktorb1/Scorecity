@@ -14,7 +14,7 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <ListBox ItemsSource="{x:Bind Sbvm.Sb, Mode=OneWay}" Background="#252E3E" Grid.RowSpan="2" Name="scoresbox" ScrollViewer.VerticalScrollBarVisibility="Hidden" SelectionChanged="scoresbox_SelectionChanged">
+        <ListBox ItemsSource="{x:Bind Sbvm.Sb, Mode=OneWay}" Background="#252E3E" Grid.RowSpan="2" Name="scoresbox" SelectionChanged="scoresbox_SelectionChanged">
             <ListBox.ItemTemplate>
                 <DataTemplate x:DataType="local:ScoreBoard">
                     <Grid>
@@ -25,11 +25,11 @@
 
                         <Grid.RowDefinitions>
                             <RowDefinition Height="80"/>
-                            <RowDefinition Height="20"/>
+                            <RowDefinition Height="30"/>
                         </Grid.RowDefinitions>
 
-                        <!--<Rectangle Fill="{x:Bind hTeam.color, Mode=OneWay}"/>-->
-                        <!--<Rectangle Grid.Column="2" Fill="{x:Bind Away.TeamColor, Mode=OneWay}" />-->
+                        <Rectangle Fill="{x:Bind Home.TeamColor, Mode=OneWay}"/>
+                        <Rectangle Fill="{x:Bind Away.TeamColor, Mode=OneWay}" Grid.Column="1"/>
                         <Rectangle Grid.Row="1"  Grid.ColumnSpan="2" Fill="Black" />
 
                         <StackPanel VerticalAlignment="Center">
@@ -42,7 +42,7 @@
                             </StackPanel>-->
                         </StackPanel>
 
-                        <StackPanel Grid.Column="2" VerticalAlignment="Center">
+                        <StackPanel Grid.Column="1" VerticalAlignment="Center">
                             <TextBlock Text="{x:Bind Away.Score, Mode=OneWay}" FontSize="40" Foreground="White" HorizontalAlignment="Center" LineStackingStrategy="BlockLineHeight" LineHeight="40" Height="36" FontWeight="SemiBold"/>
                             <TextBlock Text="{x:Bind Away.Name, Mode=OneWay}" FontSize="20" Foreground="White" HorizontalAlignment="Center"
 								LineStackingStrategy="BlockLineHeight" LineHeight="22" Height="20"/>
@@ -52,8 +52,7 @@
                             </StackPanel>-->
                         </StackPanel>
 
-                        <!--<TextBlock Grid.Row="1" HorizontalAlignment="Center" Text="{x:Bind period.current, Mode=OneWay}" FontSize="16" Foreground="White"/>
-                        <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" Text="{x:Bind clock, Mode=OneWay}" FontSize="16" Foreground="White"/>-->
+                        <TextBlock Grid.Row="1" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{x:Bind BottomStatus, Mode=OneWay}" FontSize="16" Foreground="White"/>
                     </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>
