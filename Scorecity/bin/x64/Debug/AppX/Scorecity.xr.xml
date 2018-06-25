@@ -69,8 +69,12 @@
     </RootType>
     <RootType FullName="Microsoft.Xaml.DirectUI.ProxyTypes.NullExtension" />
     <RootType FullName="Windows.UI.Xaml.Controls.Button">
-      <RootProperty Name="Style" />
+      <RootProperty Name="Padding" />
+      <RootProperty Name="FontWeight" />
+      <RootProperty Name="FontSize" />
+      <RootProperty Name="Width" />
       <RootProperty Name="Content" />
+      <RootProperty Name="Style" />
       <RootProperty Name="Foreground" />
       <RootProperty Name="Height" />
       <RootProperty Name="FontFamily" />
@@ -96,7 +100,6 @@
       <RootProperty Name="Text" />
       <RootProperty Name="Width" />
       <RootProperty Name="TextAlignment" />
-      <RootProperty Name="Inlines" />
       <RootProperty Name="VerticalAlignment" />
       <RootProperty Name="HorizontalAlignment" />
       <RootProperty Name="FontSize" />
@@ -105,9 +108,6 @@
       <RootProperty Name="LineHeight" />
       <RootProperty Name="Height" />
       <RootProperty Name="FontWeight" />
-    </RootType>
-    <RootType FullName="Windows.UI.Xaml.Documents.Run">
-      <RootProperty Name="Text" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.CalendarDatePicker">
       <RootProperty Name="Name" />

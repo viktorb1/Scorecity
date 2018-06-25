@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Data.Sqlite;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -8,6 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage;
 using Windows.System.Threading;
 using Windows.UI;
 using Windows.UI.Core;
@@ -30,31 +32,38 @@ namespace Scorecity
 	public sealed partial class MainPage : Page
     {
 
-        public GameDetails gd { get; set; }
         public string date { get; set; }
         public ScoreBoardViewModel Sbvm { get; set; }
+        public BoxScoreViewModel Bsvm { get; set; }
         ThreadPoolTimer PeriodicTimer;
 
         public MainPage()
         {
             this.InitializeComponent();
-            gd = new GameDetails();
             date = DateTime.Now.ToString("yyyyMMdd");
             date = "20180307";
             Sbvm = new ScoreBoardViewModel();
+            Bsvm = new BoxScoreViewModel();
             refreshScoreboard();
-            //startScoreboardTimer();
+            startScoreboardTimer();
         }
+
 
         private async void refreshScoreboard()
         {
             await Sbvm.updateScoreBoardViewModel(date);
 
-            if (scoresbox.Items.Count > 0 && scoresbox.SelectedIndex == -1)
-               scoresbox.SelectedIndex = 0;
+            scoreboard.SelectionChanged -= scoreboard_SelectionChanged;
 
-            if (scoresbox.SelectedIndex > 0) ;
-                //await gd.loadGameDetailsAsync(date, Sbvm.Sb[scoresbox.SelectedIndex].gameId);
+            if (scoreboard.Items.Count > 0 && scoreboard.SelectedIndex == -1)
+                scoreboard.SelectedIndex = 0;
+
+            scoreboard.SelectionChanged -= scoreboard_SelectionChanged;
+
+            if (scoreboard.SelectedIndex >= 0)
+            {
+                await Bsvm.updateBoxScoreViewModel(date, Sbvm.Sb[scoreboard.SelectedIndex].GameId);
+            }
         }
 
 
@@ -72,14 +81,14 @@ namespace Scorecity
         {
             var button = sender as Button;
 
-            if (scoresbox.Visibility == Visibility.Visible)
+            if (scoreboard.Visibility == Visibility.Visible)
             {
-                scoresbox.Visibility = Visibility.Collapsed;
+                scoreboard.Visibility = Visibility.Collapsed;
                 button.Content = "\xE72A";
             }
             else
             {
-                scoresbox.Visibility = Visibility.Visible;
+                scoreboard.Visibility = Visibility.Visible;
                 button.Content = "\xE72B";
             }
         }
@@ -89,18 +98,18 @@ namespace Scorecity
         {
             if (calendar.Date.HasValue)
             {
-                //PeriodicTimer.Cancel();
+                PeriodicTimer.Cancel();
                 date = calendar.Date.Value.ToString("yyyyMMdd");
                 refreshScoreboard();
-                //startScoreboardTimer();
+                startScoreboardTimer();
             }
         }
 
-        private void scoresbox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void scoreboard_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-                //PeriodicTimer.Cancel();
+                PeriodicTimer.Cancel();
                 refreshScoreboard();
-                //startScoreboardTimer();
+                startScoreboardTimer();
         }
 	}
 }
