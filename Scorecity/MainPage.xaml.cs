@@ -55,6 +55,10 @@ namespace Scorecity
         {
             await sem.WaitAsync();
             bool isInternetConnected = NetworkInterface.GetIsNetworkAvailable();
+            nomoregames.Visibility = Visibility.Collapsed;
+            HideSb.Content = "\xE72B";
+            scoreboard.Visibility = Visibility.Collapsed;
+            boxScore.Visibility = Visibility.Collapsed;
 
             try
             {
