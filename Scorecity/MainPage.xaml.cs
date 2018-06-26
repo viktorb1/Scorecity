@@ -44,7 +44,6 @@ namespace Scorecity
         {
             this.InitializeComponent();
             date = DateTime.Now.ToString("yyyyMMdd");
-            date = "20180307";
             Sbvm = new ScoreBoardViewModel();
             Bsvm = new BoxScoreViewModel();
             refreshScoreboard();
@@ -61,9 +60,6 @@ namespace Scorecity
             {
                 if (isInternetConnected)
                 {
-                    ProgressRing.IsActive = true;
-                    boxScore.Visibility = Visibility.Collapsed;
-
                     await Sbvm.updateScoreBoardViewModel(date);
 
                     if (scoreboard.Items.Count > 0 && scoreboard.SelectedIndex == -1)
@@ -143,8 +139,20 @@ namespace Scorecity
         {
             if (calendar.Date.HasValue)
             {
-                dateChanged = true;
                 date = calendar.Date.Value.ToString("yyyyMMdd");
+
+                if (date != DateTime.Now.ToString("yyyyMMdd"))
+                {
+                    PeriodicTimer.Cancel();
+                } else
+                {
+                    if (PeriodicTimer == null)
+                        startScoreboardTimer();
+                }
+
+                    dateChanged = true;
+                ProgressRing.IsActive = true;
+                boxScore.Visibility = Visibility.Collapsed;
                 await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.High, refreshScoreboard);
             }
         }
@@ -152,7 +160,11 @@ namespace Scorecity
         private async void scoreboard_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (scoreboard.SelectedIndex != -1 && !dateChanged)
+            {
+                ProgressRing.IsActive = true;
+                boxScore.Visibility = Visibility.Collapsed;
                 await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.High, refreshScoreboard);
+            }
         }
 
         private void Show_Home_Only(object sender, RoutedEventArgs e)
