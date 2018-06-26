@@ -13,6 +13,8 @@ namespace Scorecity
         public ObservableCollection<PlayerStats> HomeBoxscore { get; set; }
         public ObservableCollection<PlayerStats> AwayBoxscore { get; set; }
         private string oldGameId;
+        private string oldDate;
+
 
         public BoxScoreViewModel()
         {
@@ -22,18 +24,27 @@ namespace Scorecity
 
         public async Task<List<ActivePlayer>> updateBoxScoreViewModel(string date, string gameId)
         {
-            var raw = (await BoxScore.loadGameDetailsAsync(date, gameId)).stats.activePlayers;
+            var rawbs = (await BoxScore.loadGameDetailsAsync(date, gameId));
+            List<ActivePlayer> raw;
+
+            if (rawbs != null && rawbs.stats != null && rawbs.stats.activePlayers != null && rawbs.stats.activePlayers.Count > 0)
+                raw = rawbs.stats.activePlayers;
+            else
+                raw = null;
+
 
             if (raw == null)
             { // no boxscore for that dateoldDate = date;
+                oldDate = date;
                 oldGameId = gameId;
                 HomeBoxscore.Clear();
                 AwayBoxscore.Clear();
             }
-            else if (oldGameId == null || oldGameId != gameId)
+            else if (oldGameId == null || oldGameId != gameId || oldDate == null || oldDate != date)
             { // date changed
+                oldDate = date;
                 oldGameId = gameId;
-                LoadView(raw);
+                await LoadView(raw);
             }
             else
             { // same date
@@ -43,7 +54,7 @@ namespace Scorecity
             return raw;
         }
 
-        public async void LoadView(List<ActivePlayer> raw_players)
+        public async Task<ObservableCollection<PlayerStats>> LoadView(List<ActivePlayer> raw_players)
         {
             HomeBoxscore.Clear();
             AwayBoxscore.Clear();
@@ -54,28 +65,20 @@ namespace Scorecity
 
                 player.Playername = await BoxScore.GetPlayerName(raw_players[i].personId);
 
-                if (player.Playername == "")
-                {
-                    Debug.WriteLine(raw_players[i].personId);
-                }
-
                 UpdateVM(player, raw_players[i]);
 
                 if (raw_players[i].teamId == raw_players[0].teamId)
-                {
                     HomeBoxscore.Add(player);
-                }
                 else
-                {
                     AwayBoxscore.Add(player);
-                }
             }
+
+            return HomeBoxscore;
         }
 
         public void UpdateView(List<ActivePlayer> raw_players)
         {
             int j = 0, k = 0;
-
             for (int i = 0; i < raw_players.Count; i++)
             {
                 if (raw_players[i].teamId == raw_players[0].teamId)

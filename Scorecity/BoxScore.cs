@@ -34,7 +34,6 @@ namespace Scorecity
         }
 
 
-        // http://gleague.nba.com/wp-json/api/v1/players.json
         public static async Task<String> GetPlayerName(String personId)
         {
             // https://stackoverflow.com/questions/48044504/

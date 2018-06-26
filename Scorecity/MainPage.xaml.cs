@@ -36,6 +36,8 @@ namespace Scorecity
         public ScoreBoardViewModel Sbvm { get; set; }
         public BoxScoreViewModel Bsvm { get; set; }
         ThreadPoolTimer PeriodicTimer;
+        public bool loading = true;
+        static SemaphoreSlim sem = new SemaphoreSlim(1, 1);
 
         public MainPage()
         {
@@ -51,29 +53,60 @@ namespace Scorecity
 
         private async void refreshScoreboard()
         {
-            await Sbvm.updateScoreBoardViewModel(date);
-
-            scoreboard.SelectionChanged -= scoreboard_SelectionChanged;
-
-            if (scoreboard.Items.Count > 0 && scoreboard.SelectedIndex == -1)
-                scoreboard.SelectedIndex = 0;
-
-            scoreboard.SelectionChanged -= scoreboard_SelectionChanged;
-
-            if (scoreboard.SelectedIndex >= 0)
+            await sem.WaitAsync();
+            
+            try
             {
-                await Bsvm.updateBoxScoreViewModel(date, Sbvm.Sb[scoreboard.SelectedIndex].GameId);
+                await Sbvm.updateScoreBoardViewModel(date);
+
+                if (scoreboard.Items.Count > 0 && scoreboard.SelectedIndex == -1)
+                    scoreboard.SelectedIndex = 0;
+
+                if (scoreboard.Items.Count > 0)
+                {
+                    Debug.WriteLine("THIS SHOULDNT RUNNL OLOLOLOL");
+                    await Bsvm.updateBoxScoreViewModel(date, Sbvm.Sb[scoreboard.SelectedIndex].GameId);
+                }
+                else
+                {
+                    Bsvm.HomeBoxscore.Clear();
+                    Bsvm.AwayBoxscore.Clear();
+                }
+
+            } finally
+            {
+                if (homeListView.Items.Count == 0)
+                {
+                    Debug.WriteLine("THSI SHOULD RUN");
+                    boxScore.Visibility = Visibility.Collapsed;
+
+                    if (scoreboard.Items.Count > 0)
+                        nomoregames.Text = "The game has not yet started.";
+                    else
+                        nomoregames.Text = "There are no games for this date.";
+
+                    nomoregames.Visibility = Visibility.Visible;
+                } else {
+                    nomoregames.Visibility = Visibility.Collapsed;
+                    boxScore.Visibility = Visibility.Visible;
+                }
+
+                sem.Release();
+                ProgressRing.IsActive = false;
+                loading = false;
             }
         }
 
 
         private void startScoreboardTimer()
         {
-            PeriodicTimer = ThreadPoolTimer.CreatePeriodicTimer(
-            async (source) =>
-            {
-                await Dispatcher.RunAsync(CoreDispatcherPriority.High, refreshScoreboard);
-            }, TimeSpan.FromSeconds(5));
+            if (date == DateTime.Now.ToString("yyyyMMdd")) {
+                PeriodicTimer = ThreadPoolTimer.CreatePeriodicTimer(
+                async (source) =>
+                {
+                    await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, refreshScoreboard);
+                }, TimeSpan.FromSeconds(7));
+            }
         }
 
 
@@ -94,22 +127,51 @@ namespace Scorecity
         }
 
 
-        private void CalendarDatePicker_DateChanged(CalendarDatePicker sender, CalendarDatePickerDateChangedEventArgs args)
+        private async void CalendarDatePicker_DateChanged(CalendarDatePicker sender, CalendarDatePickerDateChangedEventArgs args)
         {
             if (calendar.Date.HasValue)
             {
-                PeriodicTimer.Cancel();
                 date = calendar.Date.Value.ToString("yyyyMMdd");
-                refreshScoreboard();
-                startScoreboardTimer();
+                await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.High, refreshScoreboard);
             }
         }
 
-        private void scoreboard_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void scoreboard_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-                PeriodicTimer.Cancel();
-                refreshScoreboard();
-                startScoreboardTimer();
+            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.High, refreshScoreboard);
         }
-	}
+
+        private void Show_Home_Only(object sender, RoutedEventArgs e)
+        {
+            homeButton.Background = new SolidColorBrush(Color.FromArgb(255, 34, 34, 34));
+            awayButton.Background = new SolidColorBrush(Color.FromArgb(255, 51, 51, 51));
+            bothButton.Background = new SolidColorBrush(Color.FromArgb(255, 51, 51, 51));
+            homeListView.SelectedIndex = -1;
+            awayListView.SelectedIndex = -1;
+            homeListView.Visibility = Visibility.Visible;
+            awayListView.Visibility = Visibility.Collapsed;
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            homeButton.Background = new SolidColorBrush(Color.FromArgb(255, 51, 51, 51));
+            awayButton.Background = new SolidColorBrush(Color.FromArgb(255, 34, 34, 34));
+            bothButton.Background = new SolidColorBrush(Color.FromArgb(255, 51, 51, 51));
+            homeListView.SelectedIndex = -1;
+            awayListView.SelectedIndex = -1;
+            homeListView.Visibility = Visibility.Collapsed;
+            awayListView.Visibility = Visibility.Visible;
+        }
+
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            homeButton.Background = new SolidColorBrush(Color.FromArgb(255, 51, 51, 51));
+            awayButton.Background = new SolidColorBrush(Color.FromArgb(255, 51, 51, 51));
+            bothButton.Background = new SolidColorBrush(Color.FromArgb(255, 34, 34, 34));
+            homeListView.SelectedIndex = -1;
+            awayListView.SelectedIndex = -1;
+            homeListView.Visibility = Visibility.Visible;
+            awayListView.Visibility = Visibility.Visible;
+        }
+    }
 }
