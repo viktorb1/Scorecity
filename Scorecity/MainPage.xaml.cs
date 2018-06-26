@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading;
 using System.Threading.Tasks;
@@ -36,7 +37,7 @@ namespace Scorecity
         public ScoreBoardViewModel Sbvm { get; set; }
         public BoxScoreViewModel Bsvm { get; set; }
         ThreadPoolTimer PeriodicTimer;
-        public bool loading = true;
+        public bool dateChanged = true;
         static SemaphoreSlim sem = new SemaphoreSlim(1, 1);
 
         public MainPage()
@@ -54,33 +55,42 @@ namespace Scorecity
         private async void refreshScoreboard()
         {
             await sem.WaitAsync();
-            
+            bool isInternetConnected = NetworkInterface.GetIsNetworkAvailable();
+
             try
             {
-                await Sbvm.updateScoreBoardViewModel(date);
-
-                if (scoreboard.Items.Count > 0 && scoreboard.SelectedIndex == -1)
-                    scoreboard.SelectedIndex = 0;
-
-                if (scoreboard.Items.Count > 0)
+                if (isInternetConnected)
                 {
-                    Debug.WriteLine("THIS SHOULDNT RUNNL OLOLOLOL");
-                    await Bsvm.updateBoxScoreViewModel(date, Sbvm.Sb[scoreboard.SelectedIndex].GameId);
-                }
-                else
-                {
-                    Bsvm.HomeBoxscore.Clear();
-                    Bsvm.AwayBoxscore.Clear();
-                }
-
-            } finally
-            {
-                if (homeListView.Items.Count == 0)
-                {
-                    Debug.WriteLine("THSI SHOULD RUN");
+                    ProgressRing.IsActive = true;
                     boxScore.Visibility = Visibility.Collapsed;
 
+                    await Sbvm.updateScoreBoardViewModel(date);
+
+                    if (scoreboard.Items.Count > 0 && scoreboard.SelectedIndex == -1)
+                        scoreboard.SelectedIndex = 0;
+
+                    string gameId;
+
                     if (scoreboard.Items.Count > 0)
+                        gameId = Sbvm.Sb[scoreboard.SelectedIndex].GameId;
+                    else
+                        gameId = null;
+
+                    await Bsvm.updateBoxScoreViewModel(date, gameId);
+                }
+            } finally
+            {
+                if (homeListView.Items.Count == 0 || !isInternetConnected)
+                {
+                    boxScore.Visibility = Visibility.Collapsed;
+
+                    if (!isInternetConnected)
+                    {
+                        HideSb.Content = "\xE72A";
+                        scoreboard.Visibility = Visibility.Collapsed;
+                        nomoregames.Text = "Check your internet connection.";
+                    }
+                    else if (scoreboard.Items.Count > 0)
                         nomoregames.Text = "The game has not yet started.";
                     else
                         nomoregames.Text = "There are no games for this date.";
@@ -88,12 +98,14 @@ namespace Scorecity
                     nomoregames.Visibility = Visibility.Visible;
                 } else {
                     nomoregames.Visibility = Visibility.Collapsed;
+                    HideSb.Content = "\xE72B";
+                    scoreboard.Visibility = Visibility.Visible;
                     boxScore.Visibility = Visibility.Visible;
                 }
 
                 sem.Release();
                 ProgressRing.IsActive = false;
-                loading = false;
+                dateChanged = false;
             }
         }
 
@@ -131,6 +143,7 @@ namespace Scorecity
         {
             if (calendar.Date.HasValue)
             {
+                dateChanged = true;
                 date = calendar.Date.Value.ToString("yyyyMMdd");
                 await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.High, refreshScoreboard);
             }
@@ -138,7 +151,8 @@ namespace Scorecity
 
         private async void scoreboard_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.High, refreshScoreboard);
+            if (scoreboard.SelectedIndex != -1 && !dateChanged)
+                await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.High, refreshScoreboard);
         }
 
         private void Show_Home_Only(object sender, RoutedEventArgs e)
@@ -152,7 +166,7 @@ namespace Scorecity
             awayListView.Visibility = Visibility.Collapsed;
         }
 
-        private void Button_Click_2(object sender, RoutedEventArgs e)
+        private void Show_Away_Only(object sender, RoutedEventArgs e)
         {
             homeButton.Background = new SolidColorBrush(Color.FromArgb(255, 51, 51, 51));
             awayButton.Background = new SolidColorBrush(Color.FromArgb(255, 34, 34, 34));
@@ -163,7 +177,7 @@ namespace Scorecity
             awayListView.Visibility = Visibility.Visible;
         }
 
-        private void Button_Click_3(object sender, RoutedEventArgs e)
+        private void Show_Both_Home_Away(object sender, RoutedEventArgs e)
         {
             homeButton.Background = new SolidColorBrush(Color.FromArgb(255, 51, 51, 51));
             awayButton.Background = new SolidColorBrush(Color.FromArgb(255, 51, 51, 51));

@@ -68,7 +68,7 @@
 
 
             <RelativePanel Background="#19212F">
-                <Button x:ConnectionId='38' Foreground="White" Height="50" FontFamily="Segoe MDL2 Assets"                     >&#xE72B;</Button>
+                <Button x:ConnectionId='38' Foreground="White" Height="50" FontFamily="Segoe MDL2 Assets"                      Name="HideSb">&#xE72B;</Button>
                 <CalendarDatePicker x:ConnectionId='39' RelativePanel.AlignRightWithPanel="True" Margin="8" IsTodayHighlighted="True" Name="calendar"                                             ></CalendarDatePicker>
             </RelativePanel>
 
@@ -82,7 +82,7 @@
                     <StackPanel>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 50 0 0">
                             <Button x:ConnectionId='35' Padding="10"                        Background="#222" Name="homeButton">Home</Button>
-                            <Button x:ConnectionId='36' Padding="10"                        Name="bothButton">Both</Button>
+                            <Button x:ConnectionId='36' Padding="10"                             Name="bothButton">Both</Button>
                             <Button x:ConnectionId='37' Padding="10"                        Name="awayButton">Away</Button>
                         </StackPanel>
 

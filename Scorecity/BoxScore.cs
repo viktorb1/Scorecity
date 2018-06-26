@@ -19,6 +19,9 @@ namespace Scorecity
     {
         public static async Task<BoxScoreRaw> loadGameDetailsAsync(string day, string gameID)
         {
+            if (gameID == null)
+                return null;
+
             var http = new HttpClient();
             //http://data.nba.net/data/10s/prod/v1/20170707/1521700001_boxscore.json
             var url = "http://data.nba.net/data/10s/prod/v1/" + day + "/" + gameID + "_boxscore.json";
