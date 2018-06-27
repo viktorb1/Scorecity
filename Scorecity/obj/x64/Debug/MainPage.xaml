@@ -13,8 +13,8 @@
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        
-        <ListBox x:ConnectionId='3'                                             Background="#252E3E" Grid.RowSpan="2" Name="scoreboard"                                               >
+
+        <ListBox x:ConnectionId='3'                                             Background="#19212F" Grid.RowSpan="2" Name="scoreboard"                                               >
             <ListBox.ItemTemplate>
                 <DataTemplate                              >
                     <Grid x:ConnectionId='40'>
@@ -34,22 +34,14 @@
 
                         <StackPanel VerticalAlignment="Center">
                             <TextBlock x:ConnectionId='46'                                         FontSize="40" Foreground="White" HorizontalAlignment="Center" LineStackingStrategy="BlockLineHeight" LineHeight="40" Height="36" FontWeight="SemiBold"/>
-                            <TextBlock x:ConnectionId='47'                                        FontSize="20" Foreground="White" HorizontalAlignment="Center"
+                            <TextBlock x:ConnectionId='47'                                           FontSize="20" Foreground="White" HorizontalAlignment="Center"
 								LineStackingStrategy="BlockLineHeight" LineHeight="22" Height="20"/>
-                            <!--<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                <TextBlock Text="{x:Bind hTeam.win, Mode=OneWay}" FontSize="10" Foreground="White"/>
-                                <TextBlock Text="{x:Bind hTeam.loss, Mode=OneWay}" FontSize="10" Foreground="White"/>
-                            </StackPanel>-->
                         </StackPanel>
 
                         <StackPanel Grid.Column="1" VerticalAlignment="Center">
                             <TextBlock x:ConnectionId='44'                                         FontSize="40" Foreground="White" HorizontalAlignment="Center" LineStackingStrategy="BlockLineHeight" LineHeight="40" Height="36" FontWeight="SemiBold"/>
-                            <TextBlock x:ConnectionId='45'                                        FontSize="20" Foreground="White" HorizontalAlignment="Center"
+                            <TextBlock x:ConnectionId='45'                                           FontSize="20" Foreground="White" HorizontalAlignment="Center"
 								LineStackingStrategy="BlockLineHeight" LineHeight="22" Height="20"/>
-                            <!--<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                <TextBlock Text="{x:Bind Away.win, Mode=OneWay}" FontSize="10" Foreground="White"/>
-                                <TextBlock Text="{x:Bind Away.loss, Mode=OneWay}" FontSize="10" Foreground="White"/>
-                            </StackPanel>-->
                         </StackPanel>
 
                         <TextBlock x:ConnectionId='43' Grid.Row="1" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center"                                           FontSize="16" Foreground="White"/>
@@ -99,19 +91,21 @@
                             </ListView.Resources>
 
                             <ListView.Header>
-                                <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Orientation="Horizontal">
-                                    <Button Padding="5 10" FontWeight="Bold" FontSize="14" Width="140">PLAYER</Button>
-                                    <Button Style="{StaticResource BoxscoreHeader}">MIN</Button>
-                                    <Button Style="{StaticResource BoxscoreHeader}">PTS</Button>
-                                    <Button Style="{StaticResource BoxscoreHeader}">AST</Button>
-                                    <Button Style="{StaticResource BoxscoreHeader}">REB</Button>
-                                    <Button Style="{StaticResource BoxscoreHeader}">FG</Button>
-                                    <Button Style="{StaticResource BoxscoreHeader}">3PT</Button>
-                                    <Button Style="{StaticResource BoxscoreHeader}">FT</Button>
-                                    <Button Style="{StaticResource BoxscoreHeader}">STL</Button>
-                                    <Button Style="{StaticResource BoxscoreHeader}">BLK</Button>
-                                    <Button Style="{StaticResource BoxscoreHeader}">TOV</Button>
-                                    <Button Style="{StaticResource BoxscoreHeader}">PF</Button>
+                                <StackPanel>
+                                    <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Orientation="Horizontal">
+                                        <Button Padding="5 10" FontWeight="Bold" FontSize="14" Width="140">PLAYER</Button>
+                                        <Button Style="{StaticResource BoxscoreHeader}">MIN</Button>
+                                        <Button Style="{StaticResource BoxscoreHeader}">PTS</Button>
+                                        <Button Style="{StaticResource BoxscoreHeader}">AST</Button>
+                                        <Button Style="{StaticResource BoxscoreHeader}">REB</Button>
+                                        <Button Style="{StaticResource BoxscoreHeader}">FG</Button>
+                                        <Button Style="{StaticResource BoxscoreHeader}">3PT</Button>
+                                        <Button Style="{StaticResource BoxscoreHeader}">FT</Button>
+                                        <Button Style="{StaticResource BoxscoreHeader}">STL</Button>
+                                        <Button Style="{StaticResource BoxscoreHeader}">BLK</Button>
+                                        <Button Style="{StaticResource BoxscoreHeader}">TOV</Button>
+                                        <Button Style="{StaticResource BoxscoreHeader}">PF</Button>
+                                    </StackPanel>
                                 </StackPanel>
                             </ListView.Header>
 

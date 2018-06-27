@@ -294,3 +294,4 @@ C:\Users\david\Desktop\bbscores\Scorecity\obj\x64\Debug\MultipleQualifiersPerDim
 C:\Users\david\Desktop\bbscores\Scorecity\obj\x64\Debug\ProjectArchitectures.txt
 C:\Users\david\Desktop\bbscores\Scorecity\bin\x64\Debug\Assets\players.db
 C:\Users\david\Desktop\bbscores\Scorecity\bin\x64\Debug\Newtonsoft.Json.dll
+C:\Users\david\Desktop\bbscores\Scorecity\bin\x64\Debug\Core\ForBundle\AppxManifest.xml

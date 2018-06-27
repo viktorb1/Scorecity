@@ -193,8 +193,8 @@ namespace Scorecity.Scorecity_XamlTypeInfo
             _typeNameTable[0] = "Scorecity.MainPage";
             _typeNameTable[1] = "Windows.UI.Xaml.Controls.Page";
             _typeNameTable[2] = "Windows.UI.Xaml.Controls.UserControl";
-            _typeNameTable[3] = "String";
-            _typeNameTable[4] = "Scorecity.ScoreBoardViewModel";
+            _typeNameTable[3] = "Scorecity.ScoreBoardViewModel";
+            _typeNameTable[4] = "Scorecity.ViewModelBase";
             _typeNameTable[5] = "Object";
             _typeNameTable[6] = "Scorecity.BoxScoreViewModel";
 
@@ -202,8 +202,8 @@ namespace Scorecity.Scorecity_XamlTypeInfo
             _typeTable[0] = typeof(global::Scorecity.MainPage);
             _typeTable[1] = typeof(global::Windows.UI.Xaml.Controls.Page);
             _typeTable[2] = typeof(global::Windows.UI.Xaml.Controls.UserControl);
-            _typeTable[3] = typeof(global::System.String);
-            _typeTable[4] = typeof(global::Scorecity.ScoreBoardViewModel);
+            _typeTable[3] = typeof(global::Scorecity.ScoreBoardViewModel);
+            _typeTable[4] = typeof(global::Scorecity.ViewModelBase);
             _typeTable[5] = typeof(global::System.Object);
             _typeTable[6] = typeof(global::Scorecity.BoxScoreViewModel);
         }
@@ -241,7 +241,8 @@ namespace Scorecity.Scorecity_XamlTypeInfo
         }
 
         private object Activate_0_MainPage() { return new global::Scorecity.MainPage(); }
-        private object Activate_4_ScoreBoardViewModel() { return new global::Scorecity.ScoreBoardViewModel(); }
+        private object Activate_3_ScoreBoardViewModel() { return new global::Scorecity.ScoreBoardViewModel(); }
+        private object Activate_4_ViewModelBase() { return new global::Scorecity.ViewModelBase(); }
         private object Activate_6_BoxScoreViewModel() { return new global::Scorecity.BoxScoreViewModel(); }
 
         private global::Windows.UI.Xaml.Markup.IXamlType CreateXamlType(int typeIndex)
@@ -257,7 +258,6 @@ namespace Scorecity.Scorecity_XamlTypeInfo
             case 0:   //  Scorecity.MainPage
                 userType = new global::Scorecity.Scorecity_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Windows.UI.Xaml.Controls.Page"));
                 userType.Activator = Activate_0_MainPage;
-                userType.AddMemberName("date");
                 userType.AddMemberName("Sbvm");
                 userType.AddMemberName("Bsvm");
                 userType.SetIsLocalType();
@@ -272,13 +272,16 @@ namespace Scorecity.Scorecity_XamlTypeInfo
                 xamlType = new global::Scorecity.Scorecity_XamlTypeInfo.XamlSystemBaseType(typeName, type);
                 break;
 
-            case 3:   //  String
-                xamlType = new global::Scorecity.Scorecity_XamlTypeInfo.XamlSystemBaseType(typeName, type);
+            case 3:   //  Scorecity.ScoreBoardViewModel
+                userType = new global::Scorecity.Scorecity_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Scorecity.ViewModelBase"));
+                userType.SetIsReturnTypeStub();
+                userType.SetIsLocalType();
+                xamlType = userType;
                 break;
 
-            case 4:   //  Scorecity.ScoreBoardViewModel
+            case 4:   //  Scorecity.ViewModelBase
                 userType = new global::Scorecity.Scorecity_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Object"));
-                userType.SetIsReturnTypeStub();
+                userType.Activator = Activate_4_ViewModelBase;
                 userType.SetIsLocalType();
                 xamlType = userType;
                 break;
@@ -298,32 +301,22 @@ namespace Scorecity.Scorecity_XamlTypeInfo
         }
 
 
-        private object get_0_MainPage_date(object instance)
-        {
-            var that = (global::Scorecity.MainPage)instance;
-            return that.date;
-        }
-        private void set_0_MainPage_date(object instance, object Value)
-        {
-            var that = (global::Scorecity.MainPage)instance;
-            that.date = (global::System.String)Value;
-        }
-        private object get_1_MainPage_Sbvm(object instance)
+        private object get_0_MainPage_Sbvm(object instance)
         {
             var that = (global::Scorecity.MainPage)instance;
             return that.Sbvm;
         }
-        private void set_1_MainPage_Sbvm(object instance, object Value)
+        private void set_0_MainPage_Sbvm(object instance, object Value)
         {
             var that = (global::Scorecity.MainPage)instance;
             that.Sbvm = (global::Scorecity.ScoreBoardViewModel)Value;
         }
-        private object get_2_MainPage_Bsvm(object instance)
+        private object get_1_MainPage_Bsvm(object instance)
         {
             var that = (global::Scorecity.MainPage)instance;
             return that.Bsvm;
         }
-        private void set_2_MainPage_Bsvm(object instance, object Value)
+        private void set_1_MainPage_Bsvm(object instance, object Value)
         {
             var that = (global::Scorecity.MainPage)instance;
             that.Bsvm = (global::Scorecity.BoxScoreViewModel)Value;
@@ -336,23 +329,17 @@ namespace Scorecity.Scorecity_XamlTypeInfo
 
             switch (longMemberName)
             {
-            case "Scorecity.MainPage.date":
-                userType = (global::Scorecity.Scorecity_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Scorecity.MainPage");
-                xamlMember = new global::Scorecity.Scorecity_XamlTypeInfo.XamlMember(this, "date", "String");
-                xamlMember.Getter = get_0_MainPage_date;
-                xamlMember.Setter = set_0_MainPage_date;
-                break;
             case "Scorecity.MainPage.Sbvm":
                 userType = (global::Scorecity.Scorecity_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Scorecity.MainPage");
                 xamlMember = new global::Scorecity.Scorecity_XamlTypeInfo.XamlMember(this, "Sbvm", "Scorecity.ScoreBoardViewModel");
-                xamlMember.Getter = get_1_MainPage_Sbvm;
-                xamlMember.Setter = set_1_MainPage_Sbvm;
+                xamlMember.Getter = get_0_MainPage_Sbvm;
+                xamlMember.Setter = set_0_MainPage_Sbvm;
                 break;
             case "Scorecity.MainPage.Bsvm":
                 userType = (global::Scorecity.Scorecity_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Scorecity.MainPage");
                 xamlMember = new global::Scorecity.Scorecity_XamlTypeInfo.XamlMember(this, "Bsvm", "Scorecity.BoxScoreViewModel");
-                xamlMember.Getter = get_2_MainPage_Bsvm;
-                xamlMember.Setter = set_2_MainPage_Bsvm;
+                xamlMember.Getter = get_1_MainPage_Bsvm;
+                xamlMember.Setter = set_1_MainPage_Bsvm;
                 break;
             }
             return xamlMember;

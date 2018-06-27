@@ -32,13 +32,12 @@ namespace Scorecity
     /// </summary>
 	public sealed partial class MainPage : Page
     {
-
-        public string date { get; set; }
         public ScoreBoardViewModel Sbvm { get; set; }
         public BoxScoreViewModel Bsvm { get; set; }
         ThreadPoolTimer PeriodicTimer;
-        public bool dateChanged = true;
-        static SemaphoreSlim sem = new SemaphoreSlim(1, 1);
+        private string date { get; set; }
+        private bool dateChanged = true;
+
 
         public MainPage()
         {
@@ -46,74 +45,67 @@ namespace Scorecity
             date = DateTime.Now.ToString("yyyyMMdd");
             Sbvm = new ScoreBoardViewModel();
             Bsvm = new BoxScoreViewModel();
-            refreshScoreboard();
             startScoreboardTimer();
         }
 
 
         private async void refreshScoreboard()
         {
-            await sem.WaitAsync();
             bool isInternetConnected = NetworkInterface.GetIsNetworkAvailable();
-            nomoregames.Visibility = Visibility.Collapsed;
 
-            try
+            if (isInternetConnected)
             {
-                if (isInternetConnected)
-                {
-                    await Sbvm.updateScoreBoardViewModel(date);
+                await Sbvm.updateScoreBoardViewModel(date);
 
-                    if (scoreboard.Items.Count > 0 && scoreboard.SelectedIndex == -1)
-                        scoreboard.SelectedIndex = 0;
+                if (scoreboard.Items.Count > 0 && scoreboard.SelectedIndex == -1)
+                    scoreboard.SelectedIndex = 0;
 
-                    string gameId;
-
-                    if (scoreboard.Items.Count > 0)
-                        gameId = Sbvm.Sb[scoreboard.SelectedIndex].GameId;
-                    else
-                        gameId = null;
-
-                    await Bsvm.updateBoxScoreViewModel(date, gameId);
-                }
-            } finally
-            {
-                if (homeListView.Items.Count == 0 || !isInternetConnected)
-                {
-                    boxScore.Visibility = Visibility.Collapsed;
-
-                    if (!isInternetConnected)
-                    {
-                        HideSb.Content = "\xE72A";
-                        scoreboard.Visibility = Visibility.Collapsed;
-                        nomoregames.Text = "Check your internet connection.";
-                    }
-                    else if (scoreboard.Items.Count > 0)
-                        nomoregames.Text = "The game has not yet started.";
-                    else
-                        nomoregames.Text = "There are no games for this date.";
-
-                    nomoregames.Visibility = Visibility.Visible;
-                } else {
-                    nomoregames.Visibility = Visibility.Collapsed;
-                    HideSb.Content = "\xE72B";
-                    scoreboard.Visibility = Visibility.Visible;
-                    boxScore.Visibility = Visibility.Visible;
-                }
-
-                sem.Release();
-                ProgressRing.IsActive = false;
-                dateChanged = false;
+                string gameId = (scoreboard.Items.Count > 0) ? Sbvm.Sb[scoreboard.SelectedIndex].GameId : null;
+                await Bsvm.updateBoxScoreViewModel(date, gameId);
             }
+
+            if (!isInternetConnected)
+            {
+                HideSb.Content = "\xE72A";
+                scoreboard.Visibility = Visibility.Collapsed;
+                nomoregames.Text = "Check your internet connection.";
+                nomoregames.Visibility = Visibility.Visible;
+                boxScore.Visibility = Visibility.Collapsed;
+            }
+            else if (homeListView.Items.Count == 0 && scoreboard.Items.Count > 0)
+            {
+                nomoregames.Text = "This game has not yet started.";
+                nomoregames.Visibility = Visibility.Visible;
+                boxScore.Visibility = Visibility.Collapsed;
+            }
+            else if (homeListView.Items.Count == 0 && scoreboard.Items.Count == 0)
+            {
+                nomoregames.Text = "There are no games for this date.";
+                nomoregames.Visibility = Visibility.Visible;
+                boxScore.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                nomoregames.Visibility = Visibility.Collapsed;
+                HideSb.Content = "\xE72B";
+                scoreboard.Visibility = Visibility.Visible;
+                boxScore.Visibility = Visibility.Visible;
+            }
+
+            ProgressRing.IsActive = false;
+            dateChanged = false;
         }
 
 
-        private void startScoreboardTimer()
+        private async void startScoreboardTimer()
         {
+            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.High, refreshScoreboard);
+
             if (date == DateTime.Now.ToString("yyyyMMdd")) {
                 PeriodicTimer = ThreadPoolTimer.CreatePeriodicTimer(
                 async (source) =>
                 {
-                    await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, refreshScoreboard);
+                   await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, refreshScoreboard);
                 }, TimeSpan.FromSeconds(7));
             }
         }
@@ -136,35 +128,29 @@ namespace Scorecity
         }
 
 
-        private async void CalendarDatePicker_DateChanged(CalendarDatePicker sender, CalendarDatePickerDateChangedEventArgs args)
+        private void CalendarDatePicker_DateChanged(CalendarDatePicker sender, CalendarDatePickerDateChangedEventArgs args)
         {
             if (calendar.Date.HasValue)
             {
+                dateChanged = true;
                 date = calendar.Date.Value.ToString("yyyyMMdd");
-
-                if (date != DateTime.Now.ToString("yyyyMMdd"))
-                {
-                    PeriodicTimer.Cancel();
-                } else
-                {
-                    if (PeriodicTimer == null)
-                        startScoreboardTimer();
-                }
-
-                    dateChanged = true;
-                ProgressRing.IsActive = true;
                 boxScore.Visibility = Visibility.Collapsed;
-                await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.High, refreshScoreboard);
+                nomoregames.Visibility = Visibility.Collapsed;
+                ProgressRing.IsActive = true;
+                PeriodicTimer.Cancel();
+                startScoreboardTimer();
             }
         }
 
-        private async void scoreboard_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void scoreboard_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (scoreboard.SelectedIndex != -1 && !dateChanged)
             {
-                ProgressRing.IsActive = true;
                 boxScore.Visibility = Visibility.Collapsed;
-                await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.High, refreshScoreboard);
+                nomoregames.Visibility = Visibility.Collapsed;
+                ProgressRing.IsActive = true;
+                PeriodicTimer.Cancel();
+                startScoreboardTimer();
             }
         }
 

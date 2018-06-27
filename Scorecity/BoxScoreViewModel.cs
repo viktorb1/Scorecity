@@ -40,7 +40,7 @@ namespace Scorecity
                 HomeBoxscore.Clear();
                 AwayBoxscore.Clear();
             }
-            else if (oldGameId == null || oldGameId != gameId || oldDate == null || oldDate != date)
+            else if (oldGameId != gameId ||  oldDate != date)
             { // date changed
                 oldDate = date;
                 oldGameId = gameId;
@@ -68,9 +68,9 @@ namespace Scorecity
                 UpdateVM(player, raw_players[i]);
 
                 if (raw_players[i].teamId == raw_players[0].teamId)
-                    HomeBoxscore.Add(player);
-                else
                     AwayBoxscore.Add(player);
+                else
+                    HomeBoxscore.Add(player);
             }
 
             return HomeBoxscore;
@@ -79,12 +79,13 @@ namespace Scorecity
         public void UpdateView(List<ActivePlayer> raw_players)
         {
             int j = 0, k = 0;
+
             for (int i = 0; i < raw_players.Count; i++)
             {
                 if (raw_players[i].teamId == raw_players[0].teamId)
-                    UpdateVM(HomeBoxscore[j++], raw_players[i]);
+                    UpdateVM(AwayBoxscore[j++], raw_players[i]);
                 else
-                    UpdateVM(AwayBoxscore[k++], raw_players[i]);
+                    UpdateVM(HomeBoxscore[k++], raw_players[i]);
             }
         }
 

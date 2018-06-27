@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Scorecity
 {
-    public class ScoreBoardViewModel
+    public class ScoreBoardViewModel : ViewModelBase
     {
         public ObservableCollection<ScoreBoard> Sb { get; set; }
         private string oldDate;
@@ -40,13 +40,22 @@ namespace Scorecity
 
         public void LoadView(RawData raw)
         {
-            var colors = new TeamColors().teams;
+            var teamInfo = new TeamInfo();
+            var colors = teamInfo.colors;
+            var names = teamInfo.names;
+
             Sb.Clear();
 
             for (int i = 0; i < raw.numGames; i++)
             {
-                var Home = new Team(raw.games[i].hTeam.triCode, generateScore(raw.games[i].hTeam.score), colors[raw.games[i].hTeam.triCode]);
-                var Away = new Team(raw.games[i].vTeam.triCode, generateScore(raw.games[i].vTeam.score), colors[raw.games[i].vTeam.triCode]);
+                var hTriCode = raw.games[i].hTeam.triCode;
+                var hScore = raw.games[i].hTeam.score;
+
+                var aTriCode = raw.games[i].vTeam.triCode;
+                var aScore = raw.games[i].vTeam.score;
+
+                var Home = new Team(hTriCode, generateScore(hScore), colors[hTriCode]);
+                var Away = new Team(aTriCode, generateScore(aScore), colors[aTriCode]);
                 string status = generateStatus(raw.games[i]);
                 var NewSb = new ScoreBoard(Home, Away, status, raw.games[i].gameId);
                 Sb.Add(NewSb);
@@ -133,21 +142,21 @@ namespace Scorecity
 
     public class Team : ViewModelBase
     {
-        private string name;
+        private string triCode;
         private string score;
         private string teamcolor;
 
-        public Team(string Name, string Score, string TeamColor)
+        public Team(string TriCode, string Score, string TeamColor)
         {
-            this.Name = Name;
+            this.TriCode = TriCode;
             this.Score = Score;
             this.TeamColor = TeamColor;
         }
 
-        public string Name
+        public string TriCode
         {
-            get { return name; }
-            set { if (value != name) { name = value; NotifyPropertyChanged(); } }
+            get { return triCode; }
+            set { if (value != triCode) { triCode = value; NotifyPropertyChanged(); } }
         }
 
         public string Score
@@ -161,5 +170,6 @@ namespace Scorecity
             get { return teamcolor; }
             set { if (value != teamcolor) { teamcolor = value; NotifyPropertyChanged(); } }
         }
+
     }
 }

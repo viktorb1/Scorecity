@@ -1,0 +1,2 @@
+MainPackage=C:\Users\david\Desktop\bbscores\Scorecity\bin\ARM\Debug\Scorecity_1.0.0.0_ARM_Debug.appx
+SymbolPackage=C:\Users\david\Desktop\Scorecity_1.0.0.0_Debug_Test\Scorecity_1.0.0.0_ARM_Debug.appxsym

@@ -2,13 +2,15 @@
 
 namespace Scorecity
 {
-    public class TeamColors
+    public class TeamInfo
     {
-        public Dictionary<string, string> teams { get; set; }
+        public Dictionary<string, string> colors { get; set; }
+        public Dictionary<string, string> names { get; set; }
 
-        public TeamColors()
+
+        public TeamInfo()
         {
-            teams = new Dictionary<string, string>()
+            colors = new Dictionary<string, string>()
             {
                 {"ATL", "#e21a37"},
                 {"BKN", "#000000"},
@@ -41,6 +43,41 @@ namespace Scorecity
                 {"TOR", "#bd1b21"},
                 {"UTA", "#f9a11e"},
                 {"WAS", "#cf142b"}
+            };
+
+            names = new Dictionary<string, string>()
+            {
+                {"ATL", "Atlanta Hawks"},
+                {"BKN", "Brooklyn Nets"},
+                {"BNE", "Brooklyn Nets"},
+                {"BOS", "Boston Celtics"},
+                {"CHA", "Charlotte Hornets"},
+                {"CHI", "Chicago Bulls"},
+                {"CLE", "Cleveland Cavaliers"},
+                {"DAL", "Dallas Mavericks"},
+                {"DEN", "Denver Nuggets"},
+                {"DET", "Detroit Pistons"},
+                {"GSW", "Golden State Warriors"},
+                {"HOU", "Houston Rockets"},
+                {"IND", "Indiana Pacers"},
+                {"LAC", "LA Clippers"},
+                {"LAL", "Los Angeles Lakers"},
+                {"MEM", "Memphis Grizzlies"},
+                {"MIA", "Miami Heat"},
+                {"MIL", "Milwaukee Bucks"},
+                {"MIN", "Minnesota Timberwolves"},
+                {"NOP", "New Orleans Pelicans"},
+                {"NYK", "New York Knicks"},
+                {"OKC", "Oklahoma City Thunder"},
+                {"ORL", "Orlando Magic"},
+                {"PHI", "Philadelphia 76ers"},
+                {"PHX", "Phoenix Suns"},
+                {"POR", "Portland Trail Blazers"},
+                {"SAC", "Sacramento Kings"},
+                {"SAS", "San Antonio Spurs"},
+                {"TOR", "Toronto Raptors"},
+                {"UTA", "Utah Jazz" },
+                {"WAS", "Washington Wizards"}
             };
         }
     }
