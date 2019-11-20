@@ -38,7 +38,6 @@ namespace Scorecity
         private string date { get; set; }
         private bool dateChanged = true;
 
-
         public MainPage()
         {
             this.InitializeComponent();
@@ -47,7 +46,6 @@ namespace Scorecity
             Bsvm = new BoxScoreViewModel();
             startScoreboardTimer();
         }
-
 
         private async void refreshScoreboard()
         {

@@ -35,9 +35,6 @@ namespace PlayerDatabase
                 var players = (await Players.loadPlayers()).league.standard;
                 var dleagueplayers = (await Players.loadDLeaguePlayers());
 
-                if (dleagueplayers == null)
-                    Debug.WriteLine("ILOLSDFKLJSFKDSJF");
-
                 for (int i = 0; i < players.Length; i++)
                     AddPlayer(players[i]);
 

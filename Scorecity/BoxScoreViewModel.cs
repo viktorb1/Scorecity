@@ -91,17 +91,20 @@ namespace Scorecity
 
         private void UpdateVM(PlayerStats player, ActivePlayer raw_player)
         {
-            player.Min = raw_player.min;
-            player.Pts = raw_player.points;
-            player.Ast = raw_player.assists;
-            player.Reb = raw_player.totReb;
-            player.Fg = raw_player.fgm + "/" + raw_player.fga;
-            player.Threept = raw_player.tpm + "/" + raw_player.tpa;
-            player.Ft = raw_player.ftm + "/" + raw_player.fta;
-            player.Stl = raw_player.steals;
-            player.Blk = raw_player.blocks;
-            player.Tov = raw_player.turnovers;
-            player.Pf = raw_player.pFouls;
+            if (raw_player.min != "0:00" && raw_player.min != "")
+            {
+                player.Min = raw_player.min;
+                player.Pts = raw_player.points;
+                player.Ast = raw_player.assists;
+                player.Reb = raw_player.totReb;
+                player.Fg = raw_player.fgm + "/" + raw_player.fga;
+                player.Threept = raw_player.tpm + "/" + raw_player.tpa;
+                player.Ft = raw_player.ftm + "/" + raw_player.fta;
+                player.Stl = raw_player.steals;
+                player.Blk = raw_player.blocks;
+                player.Tov = raw_player.turnovers;
+                player.Pf = raw_player.pFouls;
+            }
         }
     }
 
