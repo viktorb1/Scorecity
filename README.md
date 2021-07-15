@@ -1,3 +1,3 @@
 # Scorecity
 
-An NBA box score and statistics application for Windows 10
+An NBA box score and statistics application for Windows
