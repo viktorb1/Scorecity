@@ -67,7 +67,6 @@ namespace Scorecity
                 db.Close();
                 return name;
             }
-
         }
     }
 

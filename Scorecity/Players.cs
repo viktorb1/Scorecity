@@ -17,7 +17,8 @@ namespace PlayerDatabase
         public static async Task<LeaguePlayers> loadPlayers()
         {
             var http = new HttpClient();
-            var url = "http://data.nba.net/data/10s/prod/v1/" + DateTime.Now.ToString("yyyy") + "/players.json";
+            //var url = "http://data.nba.net/data/10s/prod/v1/" + DateTime.Now.ToString("yyyy") + "/players.json";
+            var url = "http://data.nba.net/data/10s/prod/v1/2020/players.json";
             var response = await http.GetAsync(url);
             var result = await response.Content.ReadAsStringAsync();
             var serializer = new DataContractJsonSerializer(typeof(LeaguePlayers));

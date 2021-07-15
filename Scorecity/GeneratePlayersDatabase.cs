@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Scorecity;
+using Windows.Storage;
+using System.IO;
 
 namespace PlayerDatabase
 {
@@ -13,8 +15,11 @@ namespace PlayerDatabase
     {
         public static async void InitializeDatabase()
         {
+            await ApplicationData.Current.LocalFolder.CreateFileAsync("players.db", CreationCollisionOption.OpenIfExists);
+            string dbpath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "players.db");
+
             using (SqliteConnection db =
-                new SqliteConnection("Filename=players.db"))
+                new SqliteConnection($"Filename={dbpath}"))
             {
                 db.Open();
 

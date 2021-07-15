@@ -1,1 +1,1 @@
-C:\Users\babch\Desktop\bbscores-master\Scorecity\Scorecity.csproj;x64
+C:\Users\USER\Desktop\CSProj\Scorecity\Scorecity\Scorecity.csproj;x64
